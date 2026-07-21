@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - Read more</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">☰</span>
+      <span class="logo-text">Read <b>more</b></span>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="signup-btn">Sign Up <span class="user-icon">&#128100;</span></button>
+      <span class="cart-badge">0</span>
+      <a href="#" class="login-link">Login</a>
+    </div>
+  </header>
+
+  <main class="shop-page">
+    <section class="shop-hero">
+      <div class="shop-top">
+        <div>
+          <span class="eyebrow">Find Your Next Read</span>
+          <h1>Shop Books by Category</h1>
+          <p class="section-desc">Click a category to see only the books that belong to it.</p>
+        </div>
+      </div>
+
+      <div class="category-buttons shop-categories">
+        <a href="shop.html?category=Fiction" class="category-btn active">Fiction</a>
+        <a href="shop.html?category=Science" class="category-btn">Science</a>
+        <a href="shop.html?category=History" class="category-btn">History</a>
+        <a href="shop.html?category=Children" class="category-btn">Children</a>
+      </div>
+    </section>
+
+    <section class="books-grid" id="booksGrid">
+      <!-- Book cards inserted by script -->
+    </section>
+
+    <section class="book-detail" id="bookDetail">
+      <div class="detail-left">
+        <div class="detail-images">
+          <div class="detail-image image-1" id="detailImage1"></div>
+          <div class="detail-image image-2" id="detailImage2"></div>
+        </div>
+      </div>
+      <div class="detail-right">
+        <span class="book-category" id="detailCategory"></span>
+        <h2 id="detailTitle"></h2>
+        <p class="book-author" id="detailAuthor"></p>
+        <p class="book-description" id="detailDescription"></p>
+
+        <div class="price-row">
+          <span class="book-price" id="detailPrice"></span>
+          <span class="book-old-price" id="detailOldPrice"></span>
+        </div>
+
+        <div class="stock-row">
+          <span class="stock-label">Stock:</span>
+          <span class="stock-value" id="detailStock"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const defaultBooks = [
+      {
+        title: 'The Starlight Voyage',
+        author: 'Ava Monroe',
+        category: 'Fiction',
+        price: 18.99,
+        oldPrice: 24.00,
+        stock: 12,
+        theme: '#7c3aed',
+        description: 'A beautiful story about adventure and imagination, perfect for readers who love a dreamy escape.',
+        images: ['#c7d2fe', '#d8b4fe']
+      },
+      {
+        title: 'Quantum Worlds',
+        author: 'Dr. Nia Patel',
+        category: 'Science',
+        price: 22.50,
+        oldPrice: 28.00,
+        stock: 8,
+        theme: '#38bdf8',
+        description: 'Explore the cutting edge of physics and ask the big questions about our universe.',
+        images: ['#dbeafe', '#bae6fd']
+      },
+      {
+        title: 'Lost Empires',
+        author: 'Jonah Lee',
+        category: 'History',
+        price: 17.20,
+        oldPrice: 22.00,
+        stock: 15,
+        theme: '#f97316',
+        description: 'A fast-paced journey through ancient civilizations and the stories behind their rise and fall.',
+        images: ['#fed7aa', '#fde68a']
+      },
+      {
+        title: 'Moonlight Dreams',
+        author: 'Mia Chen',
+        category: 'Fiction',
+        price: 19.40,
+        oldPrice: 23.00,
+        stock: 10,
+        theme: '#a78bfa',
+        description: 'An emotional tale of hope and discovery, weaving magical moments into everyday life.',
+        images: ['#ede9fe', '#f5d0fe']
+      },
+      {
+        title: 'Biology of Tomorrow',
+        author: 'Prof. Sara Kim',
+        category: 'Science',
+        price: 24.00,
+        oldPrice: 29.50,
+        stock: 6,
+        theme: '#22c55e',
+        description: 'A modern look at life sciences and how tomorrowâ€™s discoveries will shape our world.',
+        images: ['#dcfce7', '#bbf7d0']
+      },
+      {
+        title: 'Empire Stories',
+        author: 'Noah Hayes',
+        category: 'History',
+        price: 16.75,
+        oldPrice: 21.00,
+        stock: 18,
+        theme: '#fb7185',
+        description: 'Compelling tales of empire builders, revolutions, and the voices that changed history.',
+        images: ['#fed7e2', '#fecdd3']
+      },
+      {
+        title: 'The Little Explorer',
+        author: 'Ella Brooks',
+        category: 'Children',
+        price: 12.90,
+        oldPrice: 16.00,
+        stock: 22,
+        theme: '#fbbf24',
+        description: 'A playful story for young readers full of curiosity, fun, and charming illustrations.',
+        images: ['#fef3c7', '#fde68a']
+      },
+      {
+        title: 'Magic Garden',
+        author: 'Owen Clark',
+        category: 'Children',
+        price: 13.50,
+        oldPrice: 17.50,
+        stock: 20,
+        theme: '#34d399',
+        description: 'A joyful childrenâ€™s adventure through a garden where every plant has a secret.',
+        images: ['#dcfce7', '#bbf7d0']
+      }
+    ];
+
+    const STORAGE_KEY = 'readmore-admin-books';
+    let selectedCategory = getQueryParam('category') || 'Fiction';
+    let selectedBookIndex = null;
+
+    function getQueryParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+
+    function getAdminBooks() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    }
+
+    function loadBooks() {
+      const adminBooks = getAdminBooks();
+      return defaultBooks.concat(adminBooks);
+    }
+
+    const books = loadBooks();
+
+    function formatPrice(value) {
+      return `Rs. ${value.toFixed(2)}`;
+    }
+
+    function renderBooks(category) {
+      const container = document.getElementById('booksGrid');
+      container.innerHTML = '';
+      const filteredIndexes = books
+        .map((book, index) => book.category === category ? index : -1)
+        .filter(index => index !== -1);
+
+      if (filteredIndexes.length === 0) {
+        container.innerHTML = `<div class="empty-state">No books found for ${category}.</div>`;
+        selectedBookIndex = null;
+        return;
+      }
+
+      filteredIndexes.forEach(index => {
+        const book = books[index];
+        const card = document.createElement('article');
+        card.className = 'book-card';
+        card.innerHTML = `
+          <span class="book-category">${book.category}</span>
+          <h2>${book.title}</h2>
+          <p class="book-author">by ${book.author}</p>
+          <p class="book-price">${formatPrice(book.price)}</p>
+          <button class="book-btn" data-index="${index}">View Book</button>
+        `;
+        container.appendChild(card);
+      });
+
+      const buttons = document.querySelectorAll('.book-btn');
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {
+          selectedBookIndex = Number(button.dataset.index);
+          openBookDetail(selectedBookIndex);
+        });
+      });
+
+      if (selectedBookIndex === null || books[selectedBookIndex].category !== category) {
+        selectedBookIndex = filteredIndexes[0];
+      }
+    }
+
+    function updateActiveCategory(category) {
+      const buttons = document.querySelectorAll('.shop-categories .category-btn');
+      buttons.forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === category);
+      });
+    }
+
+    function openBookDetail(index) {
+      const book = books[index];
+      const detailSection = document.getElementById('bookDetail');
+      const detailImage1 = document.getElementById('detailImage1');
+      const detailImage2 = document.getElementById('detailImage2');
+      const detailCategory = document.getElementById('detailCategory');
+      const detailTitle = document.getElementById('detailTitle');
+      const detailAuthor = document.getElementById('detailAuthor');
+      const detailDescription = document.getElementById('detailDescription');
+      const detailPrice = document.getElementById('detailPrice');
+      const detailOldPrice = document.getElementById('detailOldPrice');
+      const detailStock = document.getElementById('detailStock');
+
+      const detailImage1Value = book.images[0] || `${book.theme}40`;
+      const detailImage2Value = book.images[1] || `${book.theme}20`;
+      detailImage1.style.background = detailImage1Value.startsWith('data:') || detailImage1Value.startsWith('http')
+        ? `url("${detailImage1Value}") center/cover no-repeat`
+        : `linear-gradient(180deg, ${detailImage1Value}, ${book.theme})`;
+      detailImage2.style.background = detailImage2Value.startsWith('data:') || detailImage2Value.startsWith('http')
+        ? `url("${detailImage2Value}") center/cover no-repeat`
+        : `linear-gradient(180deg, ${detailImage2Value}, ${book.theme})`;
+      detailSection.style.borderColor = book.theme;
+      detailCategory.textContent = book.category;
+      detailCategory.style.background = `${book.theme}20`;
+      detailTitle.textContent = book.title;
+      detailAuthor.textContent = `by ${book.author}`;
+      detailDescription.textContent = book.description;
+      detailPrice.textContent = formatPrice(book.price);
+      detailOldPrice.textContent = book.oldPrice ? formatPrice(book.oldPrice) : '';
+      detailStock.textContent = `${book.stock} copies`;
+    }
+
+    const categoryLinks = document.querySelectorAll('.shop-categories .category-btn');
+    categoryLinks.forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        const category = link.textContent;
+        selectedCategory = category;
+        updateActiveCategory(category);
+        window.history.replaceState({}, '', `shop.html?category=${category}`);
+        renderBooks(category);
+        const firstIndex = books.findIndex(book => book.category === category);
+        if (firstIndex !== -1) {
+          openBookDetail(firstIndex);
+        }
+      });
+    });
+
+    updateActiveCategory(selectedCategory);
+    renderBooks(selectedCategory);
+    if (selectedBookIndex !== null) {
+      openBookDetail(selectedBookIndex);
+    }
+  </script>
+</body>
+</html>

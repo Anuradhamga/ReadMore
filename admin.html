@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Read more</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">☰</span>
+      <span class="logo-text">Read <b>more</b></span>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="contact.html">Contact</a>
+      <a href="admin.html" class="active">Admin</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="signup-btn">Sign Up <span class="user-icon">&#128100;</span></button>
+      <span class="cart-badge">0</span>
+      <a href="#" class="login-link">Login</a>
+    </div>
+  </header>
+
+  <main class="admin-page">
+    <section class="admin-hero">
+      <span class="eyebrow">Admin Panel</span>
+      <h1>Manage Books</h1>
+      <p>Use this page to add new books and preview details without showing these controls to customers.</p>
+    </section>
+
+    <section class="admin-card">
+      <form class="admin-form">
+        <div class="input-group">
+          <span class="input-icon">📘</span>
+          <input type="text" id="bookTitle" placeholder="Book title" required>
+        </div>
+        <div class="input-group">
+          <span class="input-icon">👤</span>
+          <input type="text" id="bookAuthor" placeholder="Author name" required>
+        </div>
+        <div class="input-group">
+          <span class="input-icon">🏷️</span>
+          <select id="bookCategory">
+            <option>Fiction</option>
+            <option>Science</option>
+            <option>History</option>
+            <option>Children</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <span class="input-icon">💲</span>
+          <input type="number" id="bookPrice" min="0" step="0.01" placeholder="Price" required>
+        </div>
+        <div class="input-group">
+          <span class="input-icon">📦</span>
+          <input type="number" id="bookStock" min="0" placeholder="Stock quantity" required>
+        </div>
+        <div class="input-group">
+          <span class="input-icon">🖼️</span>
+          <input type="file" id="bookImageFile" accept="image/*">
+        </div>
+        <div class="input-group">
+          <span class="input-icon">🔗</span>
+          <input type="text" id="bookImageUrl" placeholder="Image URL (optional)">
+        </div>
+        <div class="input-group textarea-group">
+          <span class="input-icon">📝</span>
+          <textarea id="bookDescription" rows="5" placeholder="Description"></textarea>
+        </div>
+        <button id="addBookBtn" type="button" class="primary-btn">+ Add Book</button>
+      </form>
+
+      <div class="admin-book-list">
+        <h3>Admin-added books</h3>
+        <div id="adminBookList"></div>
+      </div>
+
+      <div class="admin-preview" id="adminPreview">
+        <div class="detail-images">
+          <div class="detail-image image-1" id="previewImage1"></div>
+          <div class="detail-image image-2" id="previewImage2"></div>
+        </div>
+        <div class="detail-right">
+          <span class="book-category" id="previewCategory"></span>
+          <h2 id="previewTitle">Book preview</h2>
+          <p class="book-author" id="previewAuthor"></p>
+          <p class="book-description" id="previewDescription"></p>
+          <div class="price-row">
+            <span class="book-price" id="previewPrice">Rs. 0.00</span>
+          </div>
+          <div class="stock-row">
+            <span class="stock-label">Stock:</span>
+            <span class="stock-value" id="previewStock">0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = 'readmore-admin-books';
+    const themeColors = {
+      Fiction: '#7c3aed',
+      Science: '#38bdf8',
+      History: '#f97316',
+      Children: '#fbbf24'
+    };
+
+    const preview = {
+      title: document.getElementById('previewTitle'),
+      author: document.getElementById('previewAuthor'),
+      category: document.getElementById('previewCategory'),
+      description: document.getElementById('previewDescription'),
+      price: document.getElementById('previewPrice'),
+      stock: document.getElementById('previewStock'),
+      image1: document.getElementById('previewImage1'),
+      image2: document.getElementById('previewImage2')
+    };
+
+    const imageFileInput = document.getElementById('bookImageFile');
+    const imageUrlInput = document.getElementById('bookImageUrl');
+    let currentPreviewImage = '';
+
+    function getAdminBooks() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    }
+
+    function saveAdminBook(book) {
+      const books = getAdminBooks();
+      books.push(book);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
+    }
+
+    function removeAdminBook(index) {
+      const books = getAdminBooks();
+      books.splice(index, 1);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
+      renderAdminBooks();
+    }
+
+    function renderAdminBooks() {
+      const books = getAdminBooks();
+      const list = document.getElementById('adminBookList');
+      list.innerHTML = '';
+
+      if (books.length === 0) {
+        list.innerHTML = '<p class="empty-state">No books added yet.</p>';
+        return;
+      }
+
+      books.forEach((book, index) => {
+        const item = document.createElement('div');
+        item.className = 'admin-book-item';
+        item.innerHTML = `
+          <div class="admin-book-meta">
+            <strong>${book.title}</strong>
+            <span>${book.author}</span>
+          </div>
+          <button class="remove-book-btn" data-index="${index}">Remove</button>
+        `;
+        list.appendChild(item);
+      });
+
+      document.querySelectorAll('.remove-book-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          removeAdminBook(Number(button.dataset.index));
+        });
+      });
+    }
+
+    function setPreviewImage(theme) {
+      if (currentPreviewImage) {
+        preview.image1.style.background = `url("${currentPreviewImage}") center/cover no-repeat`;
+      } else {
+        preview.image1.style.background = `linear-gradient(180deg, ${theme}40, ${theme})`;
+      }
+      preview.image2.style.background = `linear-gradient(180deg, ${theme}30, ${theme}60)`;
+    }
+
+    function updatePreview() {
+      const title = document.getElementById('bookTitle').value || 'Book preview';
+      const authorValue = document.getElementById('bookAuthor').value;
+      const author = authorValue ? `by ${authorValue}` : '';
+      const category = document.getElementById('bookCategory').value;
+      const description = document.getElementById('bookDescription').value || 'Add a description to preview the book details.';
+      const price = Number(document.getElementById('bookPrice').value || 0).toFixed(2);
+      const stock = Number(document.getElementById('bookStock').value || 0);
+      const theme = themeColors[category];
+
+      preview.title.textContent = title;
+      preview.author.textContent = author;
+      preview.category.textContent = category;
+      preview.category.style.background = `${theme}20`;
+      preview.description.textContent = description;
+      preview.price.textContent = `Rs. ${price}`;
+      preview.stock.textContent = stock;
+
+      if (imageFileInput.files && imageFileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          currentPreviewImage = reader.result;
+          setPreviewImage(theme);
+        };
+        reader.readAsDataURL(imageFileInput.files[0]);
+      } else {
+        currentPreviewImage = imageUrlInput.value.trim();
+        setPreviewImage(theme);
+      }
+    }
+
+    document.querySelectorAll('.admin-form input, .admin-form textarea, .admin-form select').forEach(el => {
+      el.addEventListener('input', updatePreview);
+    });
+
+    document.getElementById('addBookBtn').addEventListener('click', () => {
+      const title = document.getElementById('bookTitle').value.trim();
+      const author = document.getElementById('bookAuthor').value.trim();
+      const category = document.getElementById('bookCategory').value;
+      const price = Number(document.getElementById('bookPrice').value);
+      const stock = Number(document.getElementById('bookStock').value);
+      const description = document.getElementById('bookDescription').value.trim();
+      const imageUrl = imageUrlInput.value.trim();
+      const imageFile = imageFileInput.files[0];
+      const theme = themeColors[category];
+
+      if (!title || !author || !price || !stock) {
+        alert('Please fill in title, author, price and stock.');
+        return;
+      }
+
+      const saveBook = (imageSrc) => {
+        saveAdminBook({
+          title,
+          author,
+          category,
+          price,
+          oldPrice: price + 6,
+          stock,
+          theme,
+          description,
+          images: imageSrc
+            ? [imageSrc, theme + '40']
+            : [theme + '40', theme + '20']
+        });
+
+        alert('Book added. Refresh the shop page to see it in the customer interface.');
+        document.querySelector('.admin-form').reset();
+        currentPreviewImage = '';
+        updatePreview();
+      renderAdminBooks();
+        reader.onload = () => saveBook(reader.result);
+        reader.readAsDataURL(imageFile);
+      } else {
+        saveBook(imageUrl);
+      }
+    });
+
+    updatePreview();
+    renderAdminBooks();
+  </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Read more</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">☰</span>
+      <span class="logo-text">Read <b>more</b></span>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="signup.html" class="signup-btn">Sign Up <span class="user-icon">&#128100;</span></a>
+      <span class="cart-badge">0</span>
+      <a href="login.html" class="login-link">Login</a>
+    </div>
+  </header>
+
+  <main class="auth-page">
+    <section class="auth-card">
+      <div class="auth-header">
+        <span class="eyebrow">Create an account</span>
+        <h1>Sign Up</h1>
+        <p>Enter your details to create a new account and start shopping books.</p>
+      </div>
+
+      <form id="signupForm" class="auth-form">
+        <div class="input-group">
+          <span class="input-icon">👤</span>
+          <input type="text" id="fullName" placeholder="Full name" required>
+        </div>
+        <div class="input-group">
+          <span class="input-icon">🆔</span>
+          <input type="text" id="idNumber" placeholder="ID number" required>
+        </div>
+        <div class="input-group">
+          <span class="input-icon">✉️</span>
+          <input type="email" id="email" placeholder="Email address" required>
+        </div>
+        <div class="input-group">
+          <span class="input-icon">🏠</span>
+          <input type="text" id="address" placeholder="Address" required>
+        </div>
+        <div class="input-group">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="password" placeholder="Password" minlength="6" required>
+        </div>
+        <button type="submit" class="primary-btn">Create Account</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const USER_KEY = 'readmore-users';
+    const signupForm = document.getElementById('signupForm');
+
+    function getUsers() {
+      return JSON.parse(localStorage.getItem(USER_KEY) || '[]');
+    }
+
+    function saveUser(user) {
+      const users = getUsers();
+      users.push(user);
+      localStorage.setItem(USER_KEY, JSON.stringify(users));
+    }
+
+    signupForm.addEventListener('submit', event => {
+      event.preventDefault();
+      const user = {
+        fullName: document.getElementById('fullName').value.trim(),
+        idNumber: document.getElementById('idNumber').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        password: document.getElementById('password').value
+      };
+
+      if (!user.fullName || !user.idNumber || !user.email || !user.address || !user.password) {
+        alert('Please complete all fields.');
+        return;
+      }
+
+      const existing = getUsers().find(u => u.idNumber === user.idNumber);
+      if (existing) {
+        alert('A user with that ID number already exists. Please try a different ID number.');
+        return;
+      }
+
+      saveUser(user);
+      alert('Account created successfully! You can now login.');
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>
