@@ -1,103 +1,939 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up - Read more</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Create your ReadMore bookstore account.">
+
+    <title>Create Account | ReadMore</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* SIGNUP PAGE */
+
+        .signup-page {
+            min-height: 85vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #f8f7fc;
+        }
+
+        /* LEFT SIDE */
+
+        .signup-visual {
+            background: linear-gradient(145deg, #34215f, #7047dc);
+            color: white;
+            padding: 65px 55px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signup-visual::before,
+        .signup-visual::after {
+            content: "";
+            position: absolute;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 50%;
+        }
+
+        .signup-visual::before {
+            width: 420px;
+            height: 420px;
+            top: -180px;
+            right: -150px;
+        }
+
+        .signup-visual::after {
+            width: 350px;
+            height: 350px;
+            bottom: -170px;
+            left: -130px;
+        }
+
+        .signup-visual-content {
+            position: relative;
+            z-index: 1;
+            max-width: 430px;
+        }
+
+        .signup-visual h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(35px, 4vw, 53px);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .signup-visual h1 span {
+            color: #e4d7ff;
+        }
+
+        .signup-visual p {
+            color: rgba(255,255,255,0.78);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .signup-illustration {
+            margin: 45px auto;
+            font-size: 100px;
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.2));
+        }
+
+        .signup-benefits {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+            max-width: 270px;
+            margin: 0 auto;
+        }
+
+        .signup-benefits span {
+            font-size: 12px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* RIGHT SIDE */
+
+        .signup-form-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 55px 35px;
+        }
+
+        .signup-card {
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .signup-heading {
+            margin-bottom: 27px;
+        }
+
+        .signup-heading h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            color: #252238;
+            margin-bottom: 9px;
+        }
+
+        .signup-heading p {
+            font-size: 13px;
+            color: #888397;
+            line-height: 1.7;
+        }
+
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .signup-field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .signup-field label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #403a50;
+        }
+
+        .signup-input-wrapper {
+            position: relative;
+        }
+
+        .signup-input-wrapper input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #e6e2ee;
+            border-radius: 9px;
+            background: white;
+            outline: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+
+        .signup-input-wrapper input:focus {
+            border-color: #7047dc;
+            box-shadow: 0 0 0 3px rgba(112,71,220,0.08);
+        }
+
+        .signup-password-input {
+            padding-right: 60px !important;
+        }
+
+        .signup-toggle {
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: none;
+            color: #777184;
+            font-size: 10px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* PASSWORD STRENGTH */
+
+        .password-strength {
+            margin-top: 8px;
+        }
+
+        .strength-bars {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 6px;
+        }
+
+        .strength-bars span {
+            flex: 1;
+            height: 4px;
+            background: #e9e6ef;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .strength-label {
+            font-size: 10px;
+            color: #888397;
+        }
+
+        /* TERMS */
+
+        .signup-terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            margin: 3px 0;
+        }
+
+        .signup-terms input {
+            margin-top: 3px;
+            accent-color: #7047dc;
+            flex-shrink: 0;
+        }
+
+        .signup-terms label {
+            font-size: 10px;
+            line-height: 1.7;
+            color: #777184;
+        }
+
+        .signup-terms a {
+            color: #7047dc;
+            font-weight: 700;
+        }
+
+        /* BUTTON */
+
+        .signup-submit {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 9px;
+            background: #7047dc;
+            color: white;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .signup-submit:hover {
+            background: #5733bd;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(112,71,220,0.2);
+        }
+
+        .signup-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* MESSAGE */
+
+        .signup-message {
+            display: none;
+            padding: 11px 13px;
+            border-radius: 8px;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .signup-message.show {
+            display: block;
+        }
+
+        .signup-message.error {
+            background: #fff0f0;
+            color: #c53e3e;
+        }
+
+        .signup-message.success {
+            background: #e8f8ef;
+            color: #168653;
+        }
+
+        .signup-login-link {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 12px;
+            color: #888397;
+        }
+
+        .signup-login-link a {
+            color: #7047dc;
+            font-weight: 800;
+        }
+
+        .signup-security {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 10px;
+            color: #aaa5b5;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .signup-page {
+                grid-template-columns: 1fr;
+            }
+
+            .signup-visual {
+                padding: 50px 25px;
+            }
+
+            .signup-visual h1 {
+                font-size: 37px;
+            }
+
+            .signup-illustration {
+                margin: 25px auto;
+                font-size: 75px;
+            }
+
+            .signup-form-section {
+                padding: 50px 25px;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .signup-visual {
+                padding: 40px 20px;
+            }
+
+            .signup-visual h1 {
+                font-size: 31px;
+            }
+
+            .signup-form-section {
+                padding: 40px 20px;
+            }
+
+            .signup-heading h2 {
+                font-size: 29px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
+
 <body>
 
-  <header class="navbar">
-    <div class="logo">
-      <span class="logo-icon">☰</span>
-      <span class="logo-text">Read <b>more</b></span>
-    </div>
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <div class="nav-actions">
-      <a href="signup.html" class="signup-btn">Sign Up <span class="user-icon">&#128100;</span></a>
-      <span class="cart-badge">0</span>
-      <a href="login.html" class="login-link">Login</a>
-    </div>
-  </header>
+    <!-- NAVIGATION -->
 
-  <main class="auth-page">
-    <section class="auth-card">
-      <div class="auth-header">
-        <span class="eyebrow">Create an account</span>
-        <h1>Sign Up</h1>
-        <p>Enter your details to create a new account and start shopping books.</p>
-      </div>
+    <header class="navbar">
 
-      <form id="signupForm" class="auth-form">
-        <div class="input-group">
-          <span class="input-icon">👤</span>
-          <input type="text" id="fullName" placeholder="Full name" required>
+        <div class="logo">
+
+            <a href="index.html">
+
+                <span class="logo-icon">☰</span>
+
+                <span class="logo-text">
+                    Read<b>More.</b>
+                </span>
+
+            </a>
+
         </div>
-        <div class="input-group">
-          <span class="input-icon">🆔</span>
-          <input type="text" id="idNumber" placeholder="ID number" required>
+
+
+        <nav class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="shop.html">Shop</a>
+
+            <a href="contact.html">Contact</a>
+
+            <a href="login.html">Login</a>
+
+            <a href="signup.html" class="active">Sign Up</a>
+
+            <a href="cart.html" class="cart-link">
+                Cart <span class="cart-count" id="cartCount">0</span>
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- SIGNUP PAGE -->
+
+    <main class="signup-page">
+
+        <!-- LEFT VISUAL -->
+
+        <section class="signup-visual">
+
+            <div class="signup-visual-content">
+
+                <h1>
+                    Start Your
+                    <span>Reading Journey.</span>
+                </h1>
+
+                <p>
+                    Join ReadMore and explore a world of
+                    knowledge, imagination and inspiration.
+                    Your next favourite book is waiting for you.
+                </p>
+
+
+                <div class="signup-illustration">
+                    📚
+                </div>
+
+
+                <div class="signup-benefits">
+
+                    <span>✓ Discover thousands of stories</span>
+
+                    <span>✓ Explore different book categories</span>
+
+                    <span>✓ Build your personal reading journey</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- REGISTRATION FORM -->
+
+        <section class="signup-form-section">
+
+            <div class="signup-card">
+
+                <div class="signup-heading">
+
+                    <h2>Create Account</h2>
+
+                    <p>
+                        Enter your details to join the ReadMore community.
+                    </p>
+
+                </div>
+
+
+                <form class="signup-form" id="signupForm">
+
+                    <!-- FULL NAME -->
+
+                    <div class="signup-field">
+
+                        <label for="fullName">Full Name</label>
+
+                        <div class="signup-input-wrapper">
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                name="fullName"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                maxlength="80"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="signup-field">
+
+                        <label for="email">Email Address</label>
+
+                        <div class="signup-input-wrapper">
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="example@email.com"
+                                autocomplete="email"
+                                maxlength="254"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="signup-field">
+
+                        <label for="password">Password</label>
+
+                        <div class="signup-input-wrapper">
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="signup-password-input"
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                                minlength="8"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="signup-toggle"
+                                data-target="password"
+                            >
+                                SHOW
+                            </button>
+
+                        </div>
+
+
+                        <div class="password-strength">
+
+                            <div class="strength-bars">
+
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+
+                            </div>
+
+                            <p class="strength-label" id="strengthLabel">
+                                Password strength
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div class="signup-field">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <div class="signup-input-wrapper">
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                class="signup-password-input"
+                                placeholder="Re-enter your password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="signup-toggle"
+                                data-target="confirmPassword"
+                            >
+                                SHOW
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TERMS -->
+
+                    <div class="signup-terms">
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            required
+                        >
+
+                        <label for="terms">
+
+                            I agree to the
+                            <a href="#" id="termsLink">Terms & Conditions</a>
+                            and understand the ReadMore privacy policy.
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+
+                    <div
+                        class="signup-message"
+                        id="signupMessage"
+                        role="status"
+                        aria-live="polite"
+                    ></div>
+
+
+                    <!-- BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="signup-submit"
+                    >
+                        Create My Account →
+                    </button>
+
+                </form>
+
+
+                <!-- LOGIN LINK -->
+
+                <p class="signup-login-link">
+
+                    Already have an account?
+
+                    <a href="login.html">
+                        Sign In
+                    </a>
+
+                </p>
+
+
+                <p class="signup-security">
+                    🔒 Account registration requires a secure authentication backend.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-bottom">
+
+            <p>
+                © <span id="currentYear"></span>
+                ReadMore. All rights reserved.
+            </p>
+
         </div>
-        <div class="input-group">
-          <span class="input-icon">✉️</span>
-          <input type="email" id="email" placeholder="Email address" required>
-        </div>
-        <div class="input-group">
-          <span class="input-icon">🏠</span>
-          <input type="text" id="address" placeholder="Address" required>
-        </div>
-        <div class="input-group">
-          <span class="input-icon">🔒</span>
-          <input type="password" id="password" placeholder="Password" minlength="6" required>
-        </div>
-        <button type="submit" class="primary-btn">Create Account</button>
-      </form>
-    </section>
-  </main>
 
-  <script>
-    const USER_KEY = 'readmore-users';
-    const signupForm = document.getElementById('signupForm');
+    </footer>
 
-    function getUsers() {
-      return JSON.parse(localStorage.getItem(USER_KEY) || '[]');
-    }
 
-    function saveUser(user) {
-      const users = getUsers();
-      users.push(user);
-      localStorage.setItem(USER_KEY, JSON.stringify(users));
-    }
+    <script>
 
-    signupForm.addEventListener('submit', event => {
-      event.preventDefault();
-      const user = {
-        fullName: document.getElementById('fullName').value.trim(),
-        idNumber: document.getElementById('idNumber').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        address: document.getElementById('address').value.trim(),
-        password: document.getElementById('password').value
-      };
+        /* CURRENT YEAR */
 
-      if (!user.fullName || !user.idNumber || !user.email || !user.address || !user.password) {
-        alert('Please complete all fields.');
-        return;
-      }
+        document.getElementById("currentYear").textContent =
+            new Date().getFullYear();
 
-      const existing = getUsers().find(u => u.idNumber === user.idNumber);
-      if (existing) {
-        alert('A user with that ID number already exists. Please try a different ID number.');
-        return;
-      }
 
-      saveUser(user);
-      alert('Account created successfully! You can now login.');
-      window.location.href = 'login.html';
-    });
-  </script>
+        /* CART COUNT */
+
+        function updateCartCount() {
+
+            try {
+
+                const cart = JSON.parse(
+                    localStorage.getItem("readmore-cart")
+                ) || [];
+
+                const count = cart.reduce(
+                    (total, item) =>
+                        total + (Number(item.quantity) || 0),
+                    0
+                );
+
+                document.getElementById("cartCount").textContent =
+                    count;
+
+            } catch (error) {
+
+                document.getElementById("cartCount").textContent = "0";
+
+            }
+
+        }
+
+
+        /* SHOW / HIDE PASSWORD */
+
+        document.querySelectorAll(".signup-toggle")
+            .forEach(button => {
+
+                button.addEventListener("click", () => {
+
+                    const target = document.getElementById(
+                        button.dataset.target
+                    );
+
+                    const isPassword =
+                        target.type === "password";
+
+                    target.type = isPassword
+                        ? "text"
+                        : "password";
+
+                    button.textContent = isPassword
+                        ? "HIDE"
+                        : "SHOW";
+
+                });
+
+            });
+
+
+        /* PASSWORD STRENGTH */
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const strengthBars =
+            document.querySelectorAll(".strength-bars span");
+
+        const strengthLabel =
+            document.getElementById("strengthLabel");
+
+
+        passwordInput.addEventListener("input", () => {
+
+            const password = passwordInput.value;
+
+            let score = 0;
+
+            if (password.length >= 8) score++;
+
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
+                score++;
+            }
+
+            if (/[0-9]/.test(password)) score++;
+
+            if (/[^A-Za-z0-9]/.test(password)) score++;
+
+
+            const labels = [
+                "Password strength",
+                "Weak password",
+                "Fair password",
+                "Good password",
+                "Strong password"
+            ];
+
+
+            strengthBars.forEach((bar, index) => {
+
+                bar.style.background =
+                    index < score
+                        ? (
+                            score <= 1
+                                ? "#e05252"
+                                : score === 2
+                                    ? "#e5a33b"
+                                    : "#20a36a"
+                        )
+                        : "#e9e6ef";
+
+            });
+
+
+            strengthLabel.textContent =
+                password.length === 0
+                    ? labels[0]
+                    : labels[score];
+
+        });
+
+
+        /* MESSAGE */
+
+        function showSignupMessage(message, type) {
+
+            const messageBox =
+                document.getElementById("signupMessage");
+
+            messageBox.textContent = message;
+
+            messageBox.className =
+                "signup-message show " + type;
+
+        }
+
+
+        /* SIGNUP FORM */
+
+        document.getElementById("signupForm")
+            .addEventListener("submit", event => {
+
+                event.preventDefault();
+
+
+                const fullName = document
+                    .getElementById("fullName")
+                    .value.trim();
+
+                const email = document
+                    .getElementById("email")
+                    .value.trim();
+
+                const password = passwordInput.value;
+
+                const confirmPassword = document
+                    .getElementById("confirmPassword")
+                    .value;
+
+                const termsAccepted =
+                    document.getElementById("terms").checked;
+
+
+                if (!fullName || !email || !password || !confirmPassword) {
+
+                    showSignupMessage(
+                        "Please complete all required fields.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (password.length < 8) {
+
+                    showSignupMessage(
+                        "Password must contain at least 8 characters.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (password !== confirmPassword) {
+
+                    showSignupMessage(
+                        "Passwords do not match. Please try again.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (!termsAccepted) {
+
+                    showSignupMessage(
+                        "Please accept the Terms & Conditions.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                    Registration backend is not connected yet.
+
+                    Never store user passwords in LocalStorage.
+
+                    A real registration system needs secure
+                    authentication and server-side validation.
+                */
+
+
+                showSignupMessage(
+                    "Your registration form is ready. Connect an authentication backend to create your account securely.",
+                    "error"
+                );
+
+            });
+
+
+        /* TERMS NOTICE */
+
+        document.getElementById("termsLink")
+            .addEventListener("click", event => {
+
+                event.preventDefault();
+
+                alert(
+                    "Terms & Conditions and the Privacy Policy will be published here."
+                );
+
+            });
+
+
+        /* INITIALIZE */
+
+        updateCartCount();
+
+    </script>
+
 </body>
+
 </html>

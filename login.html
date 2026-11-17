@@ -1,75 +1,870 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Read more</title>
-  <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Login to your ReadMore bookstore account.">
+
+    <title>Login | ReadMore</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+
+    <style>
+
+        /* =================================
+           LOGIN PAGE
+           ================================= */
+
+        .login-page {
+            min-height: 85vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #f8f7fc;
+        }
+
+
+        /* LEFT SIDE */
+
+        .login-visual {
+            background: linear-gradient(145deg, #34215f, #7047dc);
+            color: white;
+            padding: 70px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-visual::before,
+        .login-visual::after {
+            content: "";
+            position: absolute;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 50%;
+        }
+
+        .login-visual::before {
+            width: 420px;
+            height: 420px;
+            top: -180px;
+            right: -150px;
+        }
+
+        .login-visual::after {
+            width: 350px;
+            height: 350px;
+            bottom: -170px;
+            left: -130px;
+        }
+
+        .login-visual-content {
+            position: relative;
+            z-index: 1;
+            max-width: 420px;
+        }
+
+        .login-visual h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(35px, 4vw, 55px);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .login-visual h1 span {
+            color: #e4d7ff;
+        }
+
+        .login-visual p {
+            color: rgba(255,255,255,0.78);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .login-book-illustration {
+            margin: 45px auto 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            height: 190px;
+        }
+
+        .login-book {
+            width: 95px;
+            height: 145px;
+            border-radius: 5px 12px 12px 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            box-shadow: 8px 12px 25px rgba(0,0,0,0.2);
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .login-book:nth-child(1) {
+            background: #d7b27a;
+            color: #51341d;
+            transform: rotate(-13deg) translateY(10px);
+        }
+
+        .login-book:nth-child(2) {
+            background: #f4e9d7;
+            color: #46345c;
+            height: 170px;
+            transform: translateY(-8px);
+        }
+
+        .login-book:nth-child(3) {
+            background: #477f91;
+            color: white;
+            transform: rotate(13deg) translateY(10px);
+        }
+
+        .login-trust {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 35px;
+        }
+
+        .login-trust span {
+            font-size: 11px;
+            color: rgba(255,255,255,0.85);
+        }
+
+
+        /* RIGHT SIDE */
+
+        .login-form-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 35px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .login-heading {
+            margin-bottom: 32px;
+        }
+
+        .login-heading h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 35px;
+            color: #252238;
+            margin-bottom: 10px;
+        }
+
+        .login-heading p {
+            font-size: 13px;
+            color: #888397;
+            line-height: 1.7;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 19px;
+        }
+
+        .login-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .login-field label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #403a50;
+        }
+
+        .login-input-wrapper {
+            position: relative;
+        }
+
+        .login-input-wrapper input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #e6e2ee;
+            border-radius: 9px;
+            background: white;
+            outline: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .login-input-wrapper input:focus {
+            border-color: #7047dc;
+            box-shadow: 0 0 0 3px rgba(112,71,220,0.08);
+        }
+
+        .password-input {
+            padding-right: 55px !important;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: none;
+            color: #777184;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .login-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: -3px;
+        }
+
+        .remember-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: #777184;
+            cursor: pointer;
+        }
+
+        .remember-option input {
+            accent-color: #7047dc;
+            width: 14px;
+            height: 14px;
+        }
+
+        .forgot-link {
+            font-size: 11px;
+            font-weight: 700;
+            color: #7047dc;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        .login-submit {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 9px;
+            background: #7047dc;
+            color: white;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-submit:hover {
+            background: #5733bd;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(112,71,220,0.2);
+        }
+
+        .login-divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 25px 0;
+            color: #aaa5b5;
+            font-size: 11px;
+        }
+
+        .login-divider::before,
+        .login-divider::after {
+            content: "";
+            height: 1px;
+            background: #e8e4ef;
+            flex: 1;
+        }
+
+        .login-signup {
+            text-align: center;
+            font-size: 12px;
+            color: #888397;
+        }
+
+        .login-signup a {
+            color: #7047dc;
+            font-weight: 800;
+        }
+
+        .login-signup a:hover {
+            text-decoration: underline;
+        }
+
+        .login-message {
+            display: none;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .login-message.show {
+            display: block;
+        }
+
+        .login-message.error {
+            background: #fff0f0;
+            color: #c53e3e;
+        }
+
+        .login-message.success {
+            background: #e8f8ef;
+            color: #168653;
+        }
+
+        .login-security {
+            margin-top: 28px;
+            text-align: center;
+            color: #aaa5b5;
+            font-size: 10px;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .login-page {
+                grid-template-columns: 1fr;
+            }
+
+            .login-visual {
+                padding: 55px 25px;
+            }
+
+            .login-visual h1 {
+                font-size: 38px;
+            }
+
+            .login-book-illustration {
+                margin: 25px auto;
+            }
+
+            .login-form-section {
+                padding: 55px 25px;
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .login-visual {
+                padding: 45px 20px;
+            }
+
+            .login-visual h1 {
+                font-size: 32px;
+            }
+
+            .login-book {
+                width: 75px;
+                height: 120px;
+                font-size: 11px;
+            }
+
+            .login-book:nth-child(2) {
+                height: 145px;
+            }
+
+            .login-form-section {
+                padding: 45px 20px;
+            }
+
+            .login-heading h2 {
+                font-size: 29px;
+            }
+
+            .login-options {
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
 </head>
+
+
 <body>
 
-  <header class="navbar">
+
+<!-- NAVIGATION -->
+
+<header class="navbar">
+
     <div class="logo">
-      <span class="logo-icon">☰</span>
-      <span class="logo-text">Read <b>more</b></span>
+
+        <a href="index.html">
+
+            <span class="logo-icon">☰</span>
+
+            <span class="logo-text">
+                Read<b>More.</b>
+            </span>
+
+        </a>
+
     </div>
+
+
     <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="contact.html">Contact</a>
+
+        <a href="index.html">Home</a>
+
+        <a href="shop.html">Shop</a>
+
+        <a href="contact.html">Contact</a>
+
+        <a href="login.html" class="active">Login</a>
+
+        <a href="signup.html">Sign Up</a>
+
+        <a href="cart.html" class="cart-link">
+            Cart <span class="cart-count" id="cartCount">0</span>
+        </a>
+
     </nav>
-    <div class="nav-actions">
-      <a href="signup.html" class="signup-btn">Sign Up <span class="user-icon">&#128100;</span></a>
-      <span class="cart-badge">0</span>
-      <a href="login.html" class="login-link">Login</a>
-    </div>
-  </header>
 
-  <main class="auth-page">
-    <section class="auth-card">
-      <div class="auth-header">
-        <span class="eyebrow">Welcome back</span>
-        <h1>Login</h1>
-        <p>Enter your ID number and password to access your account.</p>
-      </div>
+</header>
 
-      <form id="loginForm" class="auth-form">
-        <div class="input-group">
-          <span class="input-icon">🆔</span>
-          <input type="text" id="loginIdNumber" placeholder="ID number" required>
+
+
+<!-- LOGIN PAGE -->
+
+<main class="login-page">
+
+
+    <!-- LEFT VISUAL SECTION -->
+
+    <section class="login-visual">
+
+        <div class="login-visual-content">
+
+            <h1>
+                Welcome Back to
+                <span>ReadMore.</span>
+            </h1>
+
+            <p>
+                Every book opens a new world.
+                Continue your reading journey and discover
+                stories, knowledge and inspiration.
+            </p>
+
+
+            <div class="login-book-illustration">
+
+                <div class="login-book">
+                    THE ART<br>OF STORIES
+                </div>
+
+                <div class="login-book">
+                    KNOWLEDGE<br>IS POWER
+                </div>
+
+                <div class="login-book">
+                    EXPLORE<br>THE WORLD
+                </div>
+
+            </div>
+
+
+            <div class="login-trust">
+
+                <span>✓ Quality Books</span>
+
+                <span>✓ Easy Shopping</span>
+
+                <span>✓ Great Reading</span>
+
+            </div>
+
         </div>
-        <div class="input-group">
-          <span class="input-icon">🔒</span>
-          <input type="password" id="loginPassword" placeholder="Password" required>
-        </div>
-        <button type="submit" class="primary-btn">Login</button>
-      </form>
+
     </section>
-  </main>
 
-  <script>
-    const USER_KEY = 'readmore-users';
-    const loginForm = document.getElementById('loginForm');
 
-    function getUsers() {
-      return JSON.parse(localStorage.getItem(USER_KEY) || '[]');
+
+    <!-- RIGHT LOGIN FORM -->
+
+    <section class="login-form-section">
+
+        <div class="login-card">
+
+
+            <div class="login-heading">
+
+                <h2>Sign In</h2>
+
+                <p>
+                    Enter your account details to continue
+                    shopping with ReadMore.
+                </p>
+
+            </div>
+
+
+
+            <form class="login-form" id="loginForm">
+
+
+                <!-- EMAIL -->
+
+                <div class="login-field">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <div class="login-input-wrapper">
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="example@email.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="login-field">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="login-input-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="password-input"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="togglePassword"
+                        >
+                            SHOW
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- OPTIONS -->
+
+                <div class="login-options">
+
+                    <label class="remember-option">
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                        >
+
+                        Remember me
+
+                    </label>
+
+
+                    <a href="#" class="forgot-link" id="forgotPassword">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+
+
+                <!-- MESSAGE -->
+
+                <div
+                    class="login-message"
+                    id="loginMessage"
+                    role="status"
+                    aria-live="polite"
+                ></div>
+
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="login-submit"
+                >
+                    Sign In →
+                </button>
+
+
+            </form>
+
+
+
+            <div class="login-divider">
+                OR
+            </div>
+
+
+
+            <!-- SIGNUP -->
+
+            <p class="login-signup">
+
+                Don't have an account?
+
+                <a href="signup.html">
+                    Create an Account
+                </a>
+
+            </p>
+
+
+            <p class="login-security">
+                🔒 Your account authentication will be connected
+                when the backend is configured.
+            </p>
+
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <div class="footer-bottom">
+
+        <p>
+            © <span id="currentYear"></span>
+            ReadMore. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<script>
+
+/* =================================
+   CART COUNT
+   ================================= */
+
+
+function updateCartCount() {
+
+    try {
+
+        const cart = JSON.parse(
+            localStorage.getItem("readmore-cart")
+        ) || [];
+
+        const count = cart.reduce(
+            (total, item) =>
+                total + (Number(item.quantity) || 0),
+            0
+        );
+
+        const badge = document.getElementById("cartCount");
+
+        if (badge) {
+            badge.textContent = count;
+        }
+
+    } catch (error) {
+
+        document.getElementById("cartCount").textContent = "0";
+
     }
 
-    loginForm.addEventListener('submit', event => {
-      event.preventDefault();
-      const idNumber = document.getElementById('loginIdNumber').value.trim();
-      const password = document.getElementById('loginPassword').value;
-      const users = getUsers();
-      const user = users.find(u => u.idNumber === idNumber && u.password === password);
+}
 
-      if (!user) {
-        alert('Login failed. Please check your ID number and password.');
-        return;
-      }
 
-      alert(`Welcome back, ${user.fullName}!`);
-      window.location.href = 'index.html';
+/* =================================
+   CURRENT YEAR
+   ================================= */
+
+
+document.getElementById("currentYear").textContent =
+    new Date().getFullYear();
+
+
+/* =================================
+   SHOW / HIDE PASSWORD
+   ================================= */
+
+
+const passwordInput = document.getElementById("password");
+
+const togglePassword = document.getElementById("togglePassword");
+
+
+togglePassword.addEventListener("click", () => {
+
+    const isPassword =
+        passwordInput.type === "password";
+
+    passwordInput.type = isPassword
+        ? "text"
+        : "password";
+
+    togglePassword.textContent = isPassword
+        ? "HIDE"
+        : "SHOW";
+
+});
+
+
+/* =================================
+   LOGIN MESSAGE
+   ================================= */
+
+
+function showLoginMessage(message, type) {
+
+    const messageBox =
+        document.getElementById("loginMessage");
+
+    messageBox.textContent = message;
+
+    messageBox.className =
+        "login-message show " + type;
+
+}
+
+
+/* =================================
+   LOGIN FORM
+   ================================= */
+
+
+document.getElementById("loginForm")
+    .addEventListener("submit", event => {
+
+        event.preventDefault();
+
+
+        const email = document
+            .getElementById("email")
+            .value.trim();
+
+        const password = passwordInput.value;
+
+
+        if (!email || !password) {
+
+            showLoginMessage(
+                "Please enter your email and password.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /*
+          Authentication is not connected yet.
+
+          A secure login system needs a backend
+          or authentication provider.
+
+          Do not save passwords in LocalStorage.
+        */
+
+
+        showLoginMessage(
+            "The login interface is ready, but account authentication has not been connected yet. Please connect a backend to enable real sign-in.",
+            "error"
+        );
+
     });
-  </script>
+
+
+/* =================================
+   FORGOT PASSWORD
+   ================================= */
+
+
+document.getElementById("forgotPassword")
+    .addEventListener("click", event => {
+
+        event.preventDefault();
+
+        alert(
+            "Password recovery will be available after connecting the authentication system."
+        );
+
+    });
+
+
+/* =================================
+   INITIALIZE
+   ================================= */
+
+
+updateCartCount();
+
+
+</script>
+
+
 </body>
+
 </html>

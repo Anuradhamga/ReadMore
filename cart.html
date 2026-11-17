@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Review your selected books and manage your ReadMore shopping cart.">
+
+    <meta name="theme-color" content="#7047dc">
+
+    <title>Shopping Cart | ReadMore</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+
+        <a href="index.html" class="logo">
+            <span class="logo-icon">☰</span>
+            <span class="logo-text">Read<b>More.</b></span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+
+            <a href="login.html" class="login-link">Login</a>
+
+            <a href="signup.html" class="signup-btn">
+                Sign Up <span>↗</span>
+            </a>
+
+            <a href="cart.html" class="cart-link" aria-label="Shopping cart">
+                🛒
+                <span class="cart-badge" id="cartCount">0</span>
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- CART HERO -->
+        <section class="cart-hero">
+
+            <div>
+
+                <span class="eyebrow">YOUR READING JOURNEY</span>
+
+                <h1>
+                    Your Shopping<br>
+                    <span>Cart.</span>
+                </h1>
+
+                <p>
+                    Your next favourite book might be waiting right here.
+                </p>
+
+                <div class="shop-breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span> / </span>
+                    <a href="shop.html">Shop</a>
+                    <span> / </span>
+                    <span>Cart</span>
+                </div>
+
+            </div>
+
+            <div class="cart-hero-icon">
+                🛒
+                <span>✦</span>
+            </div>
+
+        </section>
+
+
+        <!-- CART CONTENT -->
+        <section class="cart-container">
+
+            <div class="cart-heading">
+
+                <div>
+                    <span class="eyebrow">YOUR SELECTED BOOKS</span>
+                    <h2>Shopping <span>Cart</span></h2>
+                    <p id="cartItemText">0 items in your cart</p>
+                </div>
+
+                <button
+                    type="button"
+                    class="clear-cart-btn"
+                    id="clearCartBtn"
+                >
+                    Clear Cart
+                </button>
+
+            </div>
+
+
+            <!-- EMPTY CART -->
+            <div class="empty-cart" id="emptyCart" hidden>
+
+                <div class="empty-cart-icon">📚</div>
+
+                <h2>Your Cart is Empty</h2>
+
+                <p>
+                    Looks like you haven't discovered your next
+                    favourite book yet.
+                </p>
+
+                <a href="shop.html" class="primary-btn">
+                    Explore Books →
+                </a>
+
+            </div>
+
+
+            <!-- CART LAYOUT -->
+            <div class="cart-layout" id="cartLayout" hidden>
+
+
+                <!-- CART ITEMS -->
+                <div class="cart-items-section">
+
+                    <div class="cart-table-heading">
+
+                        <span>PRODUCT</span>
+                        <span>PRICE</span>
+                        <span>QUANTITY</span>
+                        <span>TOTAL</span>
+
+                    </div>
+
+                    <div class="cart-items" id="cartItems">
+
+                        <!-- Cart items rendered by JavaScript -->
+
+                    </div>
+
+
+                    <div class="continue-shopping">
+
+                        <a href="shop.html">
+                            ← Continue Shopping
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ORDER SUMMARY -->
+                <aside class="cart-summary">
+
+                    <h2>Order Summary</h2>
+
+                    <div class="summary-item">
+
+                        <span>Subtotal</span>
+
+                        <strong id="subtotal">Rs. 0.00</strong>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <span>Delivery</span>
+
+                        <strong id="delivery">Rs. 0.00</strong>
+
+                    </div>
+
+
+                    <div class="summary-divider"></div>
+
+
+                    <div class="summary-total">
+
+                        <span>Total</span>
+
+                        <strong id="grandTotal">Rs. 0.00</strong>
+
+                    </div>
+
+
+                    <p class="delivery-note">
+                        Delivery charges are not included in this demo.
+                        Final delivery fees would be calculated at checkout.
+                    </p>
+
+
+                    <button
+                        type="button"
+                        class="checkout-btn"
+                        id="checkoutBtn"
+                    >
+                        Proceed to Checkout →
+                    </button>
+
+
+                    <div class="secure-checkout">
+
+                        <span>🔒</span>
+
+                        <p>Secure shopping experience</p>
+
+                    </div>
+
+
+                    <div class="payment-info">
+
+                        <p>Payment methods</p>
+
+                        <div class="payment-icons">
+                            <span>VISA</span>
+                            <span>MASTER</span>
+                            <span>COD</span>
+                        </div>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+        <!-- CART BENEFITS -->
+        <section class="cart-benefits">
+
+            <div class="benefit-card">
+
+                <span>📦</span>
+
+                <div>
+                    <h3>Careful Packaging</h3>
+                    <p>Books deserve to arrive safely.</p>
+                </div>
+
+            </div>
+
+
+            <div class="benefit-card">
+
+                <span>📚</span>
+
+                <div>
+                    <h3>Discover More</h3>
+                    <p>Explore books for every interest.</p>
+                </div>
+
+            </div>
+
+
+            <div class="benefit-card">
+
+                <span>💜</span>
+
+                <div>
+                    <h3>Made for Readers</h3>
+                    <p>A better experience for book lovers.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">☰</span>
+                    <span class="logo-text">Read<b>More.</b></span>
+                </a>
+
+                <p>
+                    Discover new worlds, explore knowledge
+                    and make every reading moment meaningful.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>Explore</h3>
+
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>Account</h3>
+
+                <a href="login.html">Login</a>
+                <a href="signup.html">Sign Up</a>
+                <a href="cart.html">Shopping Cart</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>Support</h3>
+
+                <a href="contact.html">Contact Us</a>
+                <a href="admin.html">Admin Panel</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © <span id="currentYear"></span> ReadMore.
+                All rights reserved.
+            </p>
+
+            <p>Designed with 💜 for book lovers.</p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- TOAST -->
+    <div class="cart-toast" id="cartToast" role="status" aria-live="polite"></div>
+
+
+    <script>
+
+        /* =====================================
+           READMORE SHOPPING CART
+           ===================================== */
+
+        const CART_STORAGE = "readmore-cart";
+
+        const cartItemsContainer = document.getElementById("cartItems");
+
+        const cartLayout = document.getElementById("cartLayout");
+
+        const emptyCart = document.getElementById("emptyCart");
+
+        const cartCount = document.getElementById("cartCount");
+
+        const cartItemText = document.getElementById("cartItemText");
+
+        const subtotalElement = document.getElementById("subtotal");
+
+        const deliveryElement = document.getElementById("delivery");
+
+        const grandTotalElement = document.getElementById("grandTotal");
+
+        const toastElement = document.getElementById("cartToast");
+
+
+        let cart = [];
+
+        let toastTimer;
+
+
+        /* READ CART */
+
+        function loadCart() {
+
+            try {
+
+                const savedCart = JSON.parse(
+                    localStorage.getItem(CART_STORAGE)
+                );
+
+                if (!Array.isArray(savedCart)) {
+                    return [];
+                }
+
+                return savedCart.filter(item => {
+
+                    return (
+                        item &&
+                        typeof item.id === "string" &&
+                        typeof item.title === "string" &&
+                        Number.isFinite(Number(item.price)) &&
+                        Number(item.price) >= 0 &&
+                        Number.isInteger(Number(item.quantity)) &&
+                        Number(item.quantity) > 0
+                    );
+
+                });
+
+            } catch (error) {
+
+                return [];
+
+            }
+
+        }
+
+
+        /* SAVE CART */
+
+        function saveCart() {
+
+            try {
+
+                localStorage.setItem(
+                    CART_STORAGE,
+                    JSON.stringify(cart)
+                );
+
+                return true;
+
+            } catch (error) {
+
+                showToast("Unable to save cart changes.");
+
+                return false;
+
+            }
+
+        }
+
+
+        /* PRICE FORMAT */
+
+        function formatPrice(price) {
+
+            return "Rs. " + Number(price).toFixed(2);
+
+        }
+
+
+        /* SAFE IMAGE URL */
+
+        function getSafeImageURL(value) {
+
+            if (typeof value !== "string" || !value.trim()) {
+                return "";
+            }
+
+            try {
+
+                const url = new URL(value, window.location.href);
+
+                if (
+                    url.protocol === "https:" ||
+                    url.protocol === "http:"
+                ) {
+
+                    return url.href;
+
+                }
+
+            } catch (error) {
+
+                return "";
+
+            }
+
+            return "";
+
+        }
+
+
+        /* CREATE ELEMENT */
+
+        function createElement(tag, className, text) {
+
+            const element = document.createElement(tag);
+
+            if (className) {
+                element.className = className;
+            }
+
+            if (text !== undefined) {
+                element.textContent = text;
+            }
+
+            return element;
+
+        }
+
+
+        /* UPDATE CART BADGE */
+
+        function updateCartCount() {
+
+            const totalItems = cart.reduce((total, item) => {
+
+                return total + Number(item.quantity);
+
+            }, 0);
+
+            cartCount.textContent = totalItems;
+
+        }
+
+
+        /* UPDATE ITEM COUNT */
+
+        function updateItemText() {
+
+            const totalItems = cart.reduce((total, item) => {
+
+                return total + Number(item.quantity);
+
+            }, 0);
+
+            cartItemText.textContent =
+                totalItems + (totalItems === 1
+                    ? " item in your cart"
+                    : " items in your cart");
+
+        }
+
+
+        /* RENDER CART */
+
+        function renderCart() {
+
+            cartItemsContainer.replaceChildren();
+
+            updateCartCount();
+
+            updateItemText();
+
+
+            if (cart.length === 0) {
+
+                cartLayout.hidden = true;
+
+                emptyCart.hidden = false;
+
+                updateSummary();
+
+                return;
+
+            }
+
+
+            cartLayout.hidden = false;
+
+            emptyCart.hidden = true;
+
+
+            cart.forEach((item, index) => {
+
+                const row = createElement(
+                    "article",
+                    "cart-item"
+                );
+
+
+                /* PRODUCT */
+
+                const product = createElement(
+                    "div",
+                    "cart-product"
+                );
+
+                const imageWrapper = createElement(
+                    "div",
+                    "cart-product-image"
+                );
+
+
+                const imageURL = getSafeImageURL(item.image);
+
+                if (imageURL) {
+
+                    const image = document.createElement("img");
+
+                    image.src = imageURL;
+
+                    image.alt = item.title;
+
+                    image.loading = "lazy";
+
+                    image.addEventListener("error", () => {
+
+                        image.remove();
+
+                        imageWrapper.textContent = "📚";
+
+                    });
+
+                    imageWrapper.appendChild(image);
+
+                } else {
+
+                    imageWrapper.textContent = "📚";
+
+                }
+
+
+                const productInfo = createElement(
+                    "div",
+                    "cart-product-info"
+                );
+
+                const title = createElement(
+                    "h3",
+                    "",
+                    item.title
+                );
+
+                const author = createElement(
+                    "p",
+                    "",
+                    item.author
+                        ? "by " + item.author
+                        : "ReadMore Collection"
+                );
+
+
+                const removeButton = createElement(
+                    "button",
+                    "remove-item-btn",
+                    "Remove"
+                );
+
+                removeButton.type = "button";
+
+                removeButton.addEventListener("click", () => {
+
+                    removeItem(index);
+
+                });
+
+
+                productInfo.append(
+                    title,
+                    author,
+                    removeButton
+                );
+
+                product.append(
+                    imageWrapper,
+                    productInfo
+                );
+
+
+                /* PRICE */
+
+                const price = createElement(
+                    "div",
+                    "cart-item-price",
+                    formatPrice(item.price)
+                );
+
+
+                /* QUANTITY */
+
+                const quantityWrapper = createElement(
+                    "div",
+                    "quantity-control"
+                );
+
+
+                const decreaseButton = createElement(
+                    "button",
+                    "quantity-btn",
+                    "−"
+                );
+
+                decreaseButton.type = "button";
+
+                decreaseButton.setAttribute(
+                    "aria-label",
+                    "Decrease quantity"
+                );
+
+                decreaseButton.disabled = item.quantity <= 1;
+
+                decreaseButton.addEventListener("click", () => {
+
+                    changeQuantity(index, -1);
+
+                });
+
+
+                const quantityValue = createElement(
+                    "span",
+                    "quantity-value",
+                    String(item.quantity)
+                );
+
+
+                const increaseButton = createElement(
+                    "button",
+                    "quantity-btn",
+                    "+"
+                );
+
+                increaseButton.type = "button";
+
+                increaseButton.setAttribute(
+                    "aria-label",
+                    "Increase quantity"
+                );
+
+                increaseButton.addEventListener("click", () => {
+
+                    changeQuantity(index, 1);
+
+                });
+
+
+                quantityWrapper.append(
+                    decreaseButton,
+                    quantityValue,
+                    increaseButton
+                );
+
+
+                /* ITEM TOTAL */
+
+                const itemTotal = createElement(
+                    "div",
+                    "cart-item-total",
+                    formatPrice(
+                        Number(item.price) * Number(item.quantity)
+                    )
+                );
+
+
+                row.append(
+                    product,
+                    price,
+                    quantityWrapper,
+                    itemTotal
+                );
+
+
+                cartItemsContainer.appendChild(row);
+
+            });
+
+
+            updateSummary();
+
+        }
+
+
+        /* CHANGE QUANTITY */
+
+        function changeQuantity(index, amount) {
+
+            const item = cart[index];
+
+            if (!item) return;
+
+
+            const newQuantity =
+                Number(item.quantity) + amount;
+
+
+            if (newQuantity < 1) return;
+
+
+            cart[index].quantity = newQuantity;
+
+
+            if (saveCart()) {
+
+                renderCart();
+
+            }
+
+        }
+
+
+        /* REMOVE ITEM */
+
+        function removeItem(index) {
+
+            const removedItem = cart[index];
+
+            if (!removedItem) return;
+
+
+            cart.splice(index, 1);
+
+
+            if (saveCart()) {
+
+                renderCart();
+
+                showToast(
+                    removedItem.title + " removed from cart."
+                );
+
+            }
+
+        }
+
+
+        /* UPDATE SUMMARY */
+
+        function updateSummary() {
+
+            const subtotal = cart.reduce((total, item) => {
+
+                return total +
+                    Number(item.price) *
+                    Number(item.quantity);
+
+            }, 0);
+
+
+            const delivery = 0;
+
+            const grandTotal = subtotal + delivery;
+
+
+            subtotalElement.textContent =
+                formatPrice(subtotal);
+
+            deliveryElement.textContent =
+                delivery === 0
+                    ? "Calculated later"
+                    : formatPrice(delivery);
+
+            grandTotalElement.textContent =
+                formatPrice(grandTotal);
+
+        }
+
+
+        /* CLEAR CART */
+
+        document.getElementById("clearCartBtn")
+            .addEventListener("click", () => {
+
+                if (cart.length === 0) return;
+
+
+                const confirmed = confirm(
+                    "Are you sure you want to remove all books from your cart?"
+                );
+
+
+                if (!confirmed) return;
+
+
+                const previousCart = [...cart];
+
+                cart = [];
+
+
+                if (saveCart()) {
+
+                    renderCart();
+
+                    showToast("Your cart has been cleared.");
+
+                } else {
+
+                    cart = previousCart;
+
+                    renderCart();
+
+                }
+
+            });
+
+
+        /* CHECKOUT */
+
+        document.getElementById("checkoutBtn")
+            .addEventListener("click", () => {
+
+                if (cart.length === 0) {
+
+                    showToast("Your cart is empty.");
+
+                    return;
+
+                }
+
+
+                alert(
+                    "Thank you for choosing ReadMore!\n\n" +
+                    "The checkout and payment system is not connected yet.\n\n" +
+                    "This is currently a frontend demo."
+                );
+
+            });
+
+
+        /* TOAST MESSAGE */
+
+        function showToast(message) {
+
+            toastElement.textContent = message;
+
+            toastElement.classList.add("show");
+
+            clearTimeout(toastTimer);
+
+            toastTimer = setTimeout(() => {
+
+                toastElement.classList.remove("show");
+
+            }, 2800);
+
+        }
+
+
+        /* INITIALIZE */
+
+        document.getElementById("currentYear").textContent =
+            new Date().getFullYear();
+
+
+        cart = loadCart();
+
+        renderCart();
+
+
+    </script>
+
+</body>
+
+</html>

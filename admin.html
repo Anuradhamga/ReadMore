@@ -1,267 +1,2170 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Read more</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="ReadMore bookstore administration dashboard.">
+
+    <title>Admin Dashboard | ReadMore</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* =================================
+           ADMIN DASHBOARD STYLES
+           ================================= */
+
+        .admin-layout {
+            min-height: 100vh;
+            display: flex;
+            background: #f7f6fb;
+        }
+
+        .admin-sidebar {
+            width: 245px;
+            background: #211c34;
+            color: white;
+            padding: 28px 18px;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .admin-sidebar .logo {
+            margin: 0 0 45px 8px;
+        }
+
+        .admin-sidebar .logo-text {
+            color: white;
+        }
+
+        .admin-sidebar-label {
+            color: #9690a9;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            padding: 0 12px;
+            margin-bottom: 15px;
+        }
+
+        .admin-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .admin-menu a {
+            padding: 13px 14px;
+            border-radius: 9px;
+            color: #b8b2ca;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .admin-menu a:hover,
+        .admin-menu a.active {
+            background: #7047dc;
+            color: white;
+        }
+
+        .admin-sidebar-bottom {
+            margin-top: auto;
+            padding-top: 30px;
+        }
+
+        .admin-sidebar-bottom a {
+            display: block;
+            padding: 12px;
+            color: #b8b2ca;
+            font-size: 12px;
+        }
+
+        .admin-main {
+            flex: 1;
+            min-width: 0;
+            padding: 30px 35px;
+        }
+
+        .admin-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .admin-topbar h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            color: #252238;
+        }
+
+        .admin-topbar p {
+            color: #888397;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            border: 1px solid #eae7f2;
+            border-radius: 12px;
+            padding: 10px 15px;
+        }
+
+        .admin-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #eee8ff;
+            color: #7047dc;
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+        }
+
+        .admin-user strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .admin-user span {
+            font-size: 10px;
+            color: #888397;
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .admin-stat-card {
+            background: white;
+            border: 1px solid #eae7f2;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px rgba(40, 30, 70, 0.03);
+        }
+
+        .admin-stat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 17px;
+        }
+
+        .admin-stat-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 11px;
+            background: #eee8ff;
+            font-size: 20px;
+        }
+
+        .admin-stat-card:nth-child(2) .admin-stat-icon {
+            background: #e4f8ef;
+        }
+
+        .admin-stat-card:nth-child(3) .admin-stat-icon {
+            background: #fff3df;
+        }
+
+        .admin-stat-card:nth-child(4) .admin-stat-icon {
+            background: #ffe9e9;
+        }
+
+        .admin-stat-card h3 {
+            font-size: 27px;
+            color: #252238;
+            margin-bottom: 4px;
+        }
+
+        .admin-stat-card p {
+            font-size: 12px;
+            color: #888397;
+        }
+
+        .admin-content-card {
+            background: white;
+            border: 1px solid #eae7f2;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .admin-section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 23px;
+        }
+
+        .admin-section-heading h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 23px;
+        }
+
+        .admin-section-heading p {
+            font-size: 12px;
+            color: #888397;
+            margin-top: 4px;
+        }
+
+        .admin-primary-btn {
+            padding: 12px 18px;
+            background: #7047dc;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .admin-primary-btn:hover {
+            background: #5632bb;
+            transform: translateY(-2px);
+        }
+
+        .admin-toolbar {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .admin-search {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .admin-search input,
+        .admin-toolbar select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #eae7f2;
+            border-radius: 8px;
+            outline: none;
+            font-size: 12px;
+            background: white;
+        }
+
+        .admin-search input:focus,
+        .admin-toolbar select:focus {
+            border-color: #7047dc;
+        }
+
+        .admin-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        .admin-table th {
+            text-align: left;
+            padding: 14px 12px;
+            background: #f8f7fc;
+            color: #888397;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .admin-table td {
+            padding: 15px 12px;
+            border-bottom: 1px solid #eeeaf4;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+
+        .admin-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .admin-book-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 190px;
+        }
+
+        .admin-book-cover {
+            width: 42px;
+            height: 55px;
+            background: #eee8ff;
+            border-radius: 5px;
+            overflow: hidden;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            color: #7047dc;
+        }
+
+        .admin-book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .admin-book-info strong {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .admin-book-info span {
+            font-size: 10px;
+            color: #888397;
+        }
+
+        .admin-category-badge {
+            display: inline-block;
+            background: #eee8ff;
+            color: #7047dc;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .stock-badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .stock-good {
+            color: #138a58;
+            background: #e4f8ef;
+        }
+
+        .stock-low {
+            color: #b87915;
+            background: #fff3df;
+        }
+
+        .stock-out {
+            color: #d64b4b;
+            background: #ffe9e9;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 7px;
+        }
+
+        .admin-action-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 7px;
+            background: #f3efff;
+            color: #7047dc;
+            font-size: 13px;
+        }
+
+        .admin-action-btn.delete {
+            background: #fff0f0;
+            color: #dc4b4b;
+        }
+
+        .admin-action-btn:hover {
+            opacity: 0.7;
+        }
+
+        .admin-empty {
+            padding: 40px 15px;
+            text-align: center;
+            color: #888397;
+            font-size: 13px;
+        }
+
+        /* FORM MODAL */
+
+        .admin-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .admin-modal.active {
+            display: flex;
+        }
+
+        .admin-modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(25, 19, 43, 0.7);
+            backdrop-filter: blur(4px);
+        }
+
+        .admin-modal-content {
+            position: relative;
+            z-index: 1;
+            background: white;
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .admin-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .admin-modal-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 25px;
+        }
+
+        .admin-modal-close {
+            width: 35px;
+            height: 35px;
+            border: none;
+            background: #f3f0fa;
+            border-radius: 50%;
+            font-size: 16px;
+        }
+
+        .admin-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .admin-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .admin-form-group.full {
+            grid-column: 1 / 3;
+        }
+
+        .admin-form-group label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #514b63;
+        }
+
+        .admin-form-group input,
+        .admin-form-group select,
+        .admin-form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e7e3ef;
+            border-radius: 8px;
+            outline: none;
+            font-size: 12px;
+            background: white;
+        }
+
+        .admin-form-group input:focus,
+        .admin-form-group select:focus,
+        .admin-form-group textarea:focus {
+            border-color: #7047dc;
+        }
+
+        .admin-form-group textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .admin-image-preview {
+            width: 100px;
+            height: 130px;
+            border-radius: 8px;
+            background: #f3efff;
+            border: 1px dashed #b7a4ef;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            color: #7047dc;
+            font-size: 25px;
+        }
+
+        .admin-image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .admin-form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .admin-cancel-btn {
+            padding: 12px 18px;
+            border: 1px solid #e7e3ef;
+            background: white;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .admin-toast {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            z-index: 5000;
+            padding: 14px 20px;
+            background: #25203a;
+            color: white;
+            border-radius: 9px;
+            font-size: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: 0.3s;
+        }
+
+        .admin-toast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1100px) {
+
+            .admin-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .admin-main {
+                padding: 25px;
+            }
+
+        }
+
+        @media (max-width: 750px) {
+
+            .admin-layout {
+                flex-direction: column;
+            }
+
+            .admin-sidebar {
+                width: 100%;
+                padding: 17px;
+            }
+
+            .admin-sidebar .logo {
+                margin-bottom: 20px;
+            }
+
+            .admin-menu {
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .admin-menu a {
+                white-space: nowrap;
+                font-size: 11px;
+                padding: 10px;
+            }
+
+            .admin-sidebar-label,
+            .admin-sidebar-bottom {
+                display: none;
+            }
+
+            .admin-main {
+                padding: 22px 15px;
+            }
+
+            .admin-topbar h1 {
+                font-size: 24px;
+            }
+
+            .admin-user {
+                padding: 7px;
+            }
+
+            .admin-user > div:last-child {
+                display: none;
+            }
+
+            .admin-section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .admin-toolbar {
+                flex-direction: column;
+            }
+
+            .admin-search {
+                max-width: none;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .admin-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .admin-stat-card {
+                padding: 14px;
+            }
+
+            .admin-stat-card h3 {
+                font-size: 22px;
+            }
+
+            .admin-stat-card p {
+                font-size: 10px;
+            }
+
+            .admin-stat-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 16px;
+            }
+
+            .admin-content-card {
+                padding: 15px;
+            }
+
+            .admin-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-form-group.full {
+                grid-column: auto;
+            }
+
+            .admin-modal-content {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-  <header class="navbar">
-    <div class="logo">
-      <span class="logo-icon">☰</span>
-      <span class="logo-text">Read <b>more</b></span>
+<div class="admin-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="admin-sidebar">
+
+        <a href="index.html" class="logo">
+
+            <span class="logo-icon">☰</span>
+
+            <span class="logo-text">
+                Read<b>More.</b>
+            </span>
+
+        </a>
+
+
+        <div class="admin-sidebar-label">
+            ADMINISTRATION
+        </div>
+
+
+        <nav class="admin-menu">
+
+            <a href="#dashboard" class="active">
+                <span>▦</span>
+                Dashboard
+            </a>
+
+            <a href="#books">
+                <span>📚</span>
+                Books Management
+            </a>
+
+            <a href="shop.html">
+                <span>🛍️</span>
+                View Store
+            </a>
+
+            <a href="cart.html">
+                <span>🛒</span>
+                Shopping Cart
+            </a>
+
+        </nav>
+
+
+        <div class="admin-sidebar-bottom">
+
+            <a href="index.html">← Back to Website</a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="admin-main" id="dashboard">
+
+
+        <!-- TOP BAR -->
+
+        <div class="admin-topbar">
+
+            <div>
+
+                <h1>Dashboard Overview</h1>
+
+                <p>Welcome to your ReadMore administration panel.</p>
+
+            </div>
+
+
+            <div class="admin-user">
+
+                <div class="admin-avatar">A</div>
+
+                <div>
+
+                    <strong>Administrator</strong>
+
+                    <span>Store Management</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <section class="admin-stats">
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-top">
+
+                    <div class="admin-stat-icon">📚</div>
+
+                </div>
+
+                <h3 id="totalBooks">0</h3>
+
+                <p>Total Books</p>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-top">
+
+                    <div class="admin-stat-icon">📦</div>
+
+                </div>
+
+                <h3 id="totalStock">0</h3>
+
+                <p>Total Stock Units</p>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-top">
+
+                    <div class="admin-stat-icon">💰</div>
+
+                </div>
+
+                <h3 id="totalValue">Rs. 0</h3>
+
+                <p>Estimated Stock Value</p>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-top">
+
+                    <div class="admin-stat-icon">⚠️</div>
+
+                </div>
+
+                <h3 id="lowStock">0</h3>
+
+                <p>Low Stock Books</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- BOOK MANAGEMENT -->
+
+        <section class="admin-content-card" id="books">
+
+
+            <div class="admin-section-heading">
+
+                <div>
+
+                    <h2>Books Management</h2>
+
+                    <p>Add, edit and manage your bookstore collection.</p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="admin-primary-btn"
+                    id="addBookBtn"
+                >
+                    + Add New Book
+                </button>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <div class="admin-toolbar">
+
+                <div class="admin-search">
+
+                    <input
+                        type="search"
+                        id="adminSearch"
+                        placeholder="Search by title or author..."
+                        aria-label="Search books"
+                    >
+
+                </div>
+
+
+                <select id="categoryFilter" aria-label="Filter by category">
+
+                    <option value="All">All Categories</option>
+
+                    <option value="Fiction">Fiction</option>
+
+                    <option value="Science">Science</option>
+
+                    <option value="History">History</option>
+
+                    <option value="Children">Children</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- TABLE -->
+
+            <div class="admin-table-wrapper">
+
+                <table class="admin-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Book</th>
+
+                            <th>Category</th>
+
+                            <th>Price</th>
+
+                            <th>Stock</th>
+
+                            <th>Status</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="adminBookTable">
+
+                    </tbody>
+
+                </table>
+
+                <div class="admin-empty" id="adminEmpty" hidden>
+                    No books found.
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- INFORMATION -->
+
+        <section class="admin-content-card">
+
+            <div class="admin-section-heading">
+
+                <div>
+
+                    <h2>Store Information</h2>
+
+                    <p>Important information about your administration system.</p>
+
+                </div>
+
+            </div>
+
+
+            <div style="background:#f8f7fc;padding:20px;border-radius:10px;">
+
+                <p style="font-size:12px;color:#77758a;line-height:1.9;">
+
+                    <strong style="color:#7047dc;">Storage:</strong>
+                    Books are currently saved in this browser using LocalStorage.
+
+                    <br>
+
+                    <strong style="color:#7047dc;">Product Management:</strong>
+                    Added books appear in the Shop page when using the same browser.
+
+                    <br>
+
+                    <strong style="color:#7047dc;">Important:</strong>
+                    This is a frontend demonstration dashboard.
+                    It does not provide secure administrator authentication
+                    or a shared online database.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<!-- ADD / EDIT MODAL -->
+
+<div class="admin-modal" id="bookModal">
+
+    <div class="admin-modal-overlay" id="modalOverlay"></div>
+
+
+    <div class="admin-modal-content">
+
+        <div class="admin-modal-header">
+
+            <h2 id="modalHeading">Add New Book</h2>
+
+            <button
+                type="button"
+                class="admin-modal-close"
+                id="closeModal"
+                aria-label="Close"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <form id="bookForm">
+
+            <div class="admin-form-grid">
+
+
+                <div class="admin-form-group full">
+
+                    <label for="bookTitle">Book Title *</label>
+
+                    <input
+                        type="text"
+                        id="bookTitle"
+                        maxlength="100"
+                        placeholder="Enter book title"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="admin-form-group">
+
+                    <label for="bookAuthor">Author *</label>
+
+                    <input
+                        type="text"
+                        id="bookAuthor"
+                        maxlength="80"
+                        placeholder="Enter author name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="admin-form-group">
+
+                    <label for="bookCategory">Category *</label>
+
+                    <select id="bookCategory" required>
+
+                        <option value="">Select Category</option>
+
+                        <option value="Fiction">Fiction</option>
+
+                        <option value="Science">Science</option>
+
+                        <option value="History">History</option>
+
+                        <option value="Children">Children</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="admin-form-group">
+
+                    <label for="bookPrice">Price (Rs.) *</label>
+
+                    <input
+                        type="number"
+                        id="bookPrice"
+                        min="0.01"
+                        step="0.01"
+                        placeholder="1850.00"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="admin-form-group">
+
+                    <label for="bookStock">Stock Quantity *</label>
+
+                    <input
+                        type="number"
+                        id="bookStock"
+                        min="0"
+                        step="1"
+                        placeholder="10"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="admin-form-group full">
+
+                    <label for="bookDescription">Description</label>
+
+                    <textarea
+                        id="bookDescription"
+                        maxlength="1000"
+                        placeholder="Write a short book description..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="admin-form-group">
+
+                    <label for="bookTheme">Cover Theme</label>
+
+                    <select id="bookTheme">
+
+                        <option value="#7047dc">Purple</option>
+
+                        <option value="#278a9d">Ocean Blue</option>
+
+                        <option value="#245b8e">Dark Blue</option>
+
+                        <option value="#c28b42">Golden</option>
+
+                        <option value="#a75a35">Brown</option>
+
+                        <option value="#59804c">Green</option>
+
+                        <option value="#273f77">Midnight Blue</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="admin-form-group">
+
+                    <label for="bookImage">Book Cover Image</label>
+
+                    <input
+                        type="file"
+                        id="bookImage"
+                        accept="image/jpeg,image/png,image/webp"
+                    >
+
+                </div>
+
+
+                <div class="admin-form-group full">
+
+                    <label>Image Preview</label>
+
+                    <div class="admin-image-preview" id="imagePreview">
+                        📚
+                    </div>
+
+                    <small style="font-size:10px;color:#888397;">
+                        Supported formats: JPG, PNG and WEBP.
+                        Maximum file size: 1 MB.
+                    </small>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="admin-form-actions">
+
+                <button
+                    type="button"
+                    class="admin-cancel-btn"
+                    id="cancelModal"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="admin-primary-btn"
+                    id="saveBookBtn"
+                >
+                    Save Book
+                </button>
+
+            </div>
+
+
+        </form>
+
     </div>
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="contact.html">Contact</a>
-      <a href="admin.html" class="active">Admin</a>
-    </nav>
-    <div class="nav-actions">
-      <button class="signup-btn">Sign Up <span class="user-icon">&#128100;</span></button>
-      <span class="cart-badge">0</span>
-      <a href="#" class="login-link">Login</a>
-    </div>
-  </header>
 
-  <main class="admin-page">
-    <section class="admin-hero">
-      <span class="eyebrow">Admin Panel</span>
-      <h1>Manage Books</h1>
-      <p>Use this page to add new books and preview details without showing these controls to customers.</p>
-    </section>
+</div>
 
-    <section class="admin-card">
-      <form class="admin-form">
-        <div class="input-group">
-          <span class="input-icon">📘</span>
-          <input type="text" id="bookTitle" placeholder="Book title" required>
-        </div>
-        <div class="input-group">
-          <span class="input-icon">👤</span>
-          <input type="text" id="bookAuthor" placeholder="Author name" required>
-        </div>
-        <div class="input-group">
-          <span class="input-icon">🏷️</span>
-          <select id="bookCategory">
-            <option>Fiction</option>
-            <option>Science</option>
-            <option>History</option>
-            <option>Children</option>
-          </select>
-        </div>
-        <div class="input-group">
-          <span class="input-icon">💲</span>
-          <input type="number" id="bookPrice" min="0" step="0.01" placeholder="Price" required>
-        </div>
-        <div class="input-group">
-          <span class="input-icon">📦</span>
-          <input type="number" id="bookStock" min="0" placeholder="Stock quantity" required>
-        </div>
-        <div class="input-group">
-          <span class="input-icon">🖼️</span>
-          <input type="file" id="bookImageFile" accept="image/*">
-        </div>
-        <div class="input-group">
-          <span class="input-icon">🔗</span>
-          <input type="text" id="bookImageUrl" placeholder="Image URL (optional)">
-        </div>
-        <div class="input-group textarea-group">
-          <span class="input-icon">📝</span>
-          <textarea id="bookDescription" rows="5" placeholder="Description"></textarea>
-        </div>
-        <button id="addBookBtn" type="button" class="primary-btn">+ Add Book</button>
-      </form>
 
-      <div class="admin-book-list">
-        <h3>Admin-added books</h3>
-        <div id="adminBookList"></div>
-      </div>
+<!-- TOAST -->
 
-      <div class="admin-preview" id="adminPreview">
-        <div class="detail-images">
-          <div class="detail-image image-1" id="previewImage1"></div>
-          <div class="detail-image image-2" id="previewImage2"></div>
-        </div>
-        <div class="detail-right">
-          <span class="book-category" id="previewCategory"></span>
-          <h2 id="previewTitle">Book preview</h2>
-          <p class="book-author" id="previewAuthor"></p>
-          <p class="book-description" id="previewDescription"></p>
-          <div class="price-row">
-            <span class="book-price" id="previewPrice">Rs. 0.00</span>
-          </div>
-          <div class="stock-row">
-            <span class="stock-label">Stock:</span>
-            <span class="stock-value" id="previewStock">0</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+<div class="admin-toast" id="adminToast" role="status" aria-live="polite"></div>
 
-  <script>
-    const STORAGE_KEY = 'readmore-admin-books';
-    const themeColors = {
-      Fiction: '#7c3aed',
-      Science: '#38bdf8',
-      History: '#f97316',
-      Children: '#fbbf24'
-    };
 
-    const preview = {
-      title: document.getElementById('previewTitle'),
-      author: document.getElementById('previewAuthor'),
-      category: document.getElementById('previewCategory'),
-      description: document.getElementById('previewDescription'),
-      price: document.getElementById('previewPrice'),
-      stock: document.getElementById('previewStock'),
-      image1: document.getElementById('previewImage1'),
-      image2: document.getElementById('previewImage2')
-    };
+<script>
 
-    const imageFileInput = document.getElementById('bookImageFile');
-    const imageUrlInput = document.getElementById('bookImageUrl');
-    let currentPreviewImage = '';
+/* =========================================
+   READMORE ADMIN DASHBOARD
+   ========================================= */
 
-    function getAdminBooks() {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+const STORAGE_KEY = "readmore-admin-books";
+
+let adminBooks = [];
+
+let editingBookId = null;
+
+let selectedImage = "";
+
+let toastTimer;
+
+
+/* DOM ELEMENTS */
+
+const bookTable = document.getElementById("adminBookTable");
+
+const bookModal = document.getElementById("bookModal");
+
+const bookForm = document.getElementById("bookForm");
+
+const imagePreview = document.getElementById("imagePreview");
+
+const adminToast = document.getElementById("adminToast");
+
+
+/* =========================================
+   STORAGE FUNCTIONS
+   ========================================= */
+
+
+function loadBooks() {
+
+    try {
+
+        const storedBooks = JSON.parse(
+            localStorage.getItem(STORAGE_KEY)
+        );
+
+        adminBooks = Array.isArray(storedBooks)
+            ? storedBooks.filter(book =>
+                book &&
+                typeof book.id === "string" &&
+                typeof book.title === "string" &&
+                typeof book.author === "string" &&
+                Number.isFinite(Number(book.price)) &&
+                Number.isFinite(Number(book.stock))
+            )
+            : [];
+
+    } catch (error) {
+
+        adminBooks = [];
+
     }
 
-    function saveAdminBook(book) {
-      const books = getAdminBooks();
-      books.push(book);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
+}
+
+
+function saveBooks() {
+
+    try {
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(adminBooks)
+        );
+
+        return true;
+
+    } catch (error) {
+
+        showToast(
+            "Unable to save data. Browser storage may be full."
+        );
+
+        return false;
+
     }
 
-    function removeAdminBook(index) {
-      const books = getAdminBooks();
-      books.splice(index, 1);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
-      renderAdminBooks();
+}
+
+
+/* =========================================
+   SAFE ELEMENT CREATION
+   ========================================= */
+
+
+function createElement(tag, className, text) {
+
+    const element = document.createElement(tag);
+
+    if (className) {
+        element.className = className;
     }
 
-    function renderAdminBooks() {
-      const books = getAdminBooks();
-      const list = document.getElementById('adminBookList');
-      list.innerHTML = '';
+    if (text !== undefined) {
+        element.textContent = text;
+    }
 
-      if (books.length === 0) {
-        list.innerHTML = '<p class="empty-state">No books added yet.</p>';
-        return;
-      }
+    return element;
 
-      books.forEach((book, index) => {
-        const item = document.createElement('div');
-        item.className = 'admin-book-item';
-        item.innerHTML = `
-          <div class="admin-book-meta">
-            <strong>${book.title}</strong>
-            <span>${book.author}</span>
-          </div>
-          <button class="remove-book-btn" data-index="${index}">Remove</button>
-        `;
-        list.appendChild(item);
-      });
+}
 
-      document.querySelectorAll('.remove-book-btn').forEach(button => {
-        button.addEventListener('click', () => {
-          removeAdminBook(Number(button.dataset.index));
+
+function getSafeImageURL(value) {
+
+    if (typeof value !== "string" || !value.trim()) {
+        return "";
+    }
+
+    if (value.startsWith("data:image/")) {
+        return value;
+    }
+
+    try {
+
+        const url = new URL(value, window.location.href);
+
+        if (
+            url.protocol === "https:" ||
+            url.protocol === "http:"
+        ) {
+            return url.href;
+        }
+
+    } catch (error) {
+
+        return "";
+
+    }
+
+    return "";
+
+}
+
+
+/* =========================================
+   DASHBOARD STATISTICS
+   ========================================= */
+
+
+function updateStatistics() {
+
+    const totalBooks = adminBooks.length;
+
+    const totalStock = adminBooks.reduce(
+        (total, book) => total + Number(book.stock),
+        0
+    );
+
+    const totalValue = adminBooks.reduce(
+        (total, book) =>
+            total + Number(book.price) * Number(book.stock),
+        0
+    );
+
+    const lowStock = adminBooks.filter(
+        book => Number(book.stock) <= 5
+    ).length;
+
+
+    document.getElementById("totalBooks").textContent =
+        totalBooks;
+
+    document.getElementById("totalStock").textContent =
+        totalStock;
+
+    document.getElementById("totalValue").textContent =
+        "Rs. " + totalValue.toLocaleString(
+            "en-LK",
+            {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }
+        );
+
+    document.getElementById("lowStock").textContent =
+        lowStock;
+
+}
+
+
+/* =========================================
+   BOOK TABLE
+   ========================================= */
+
+
+function renderBooks() {
+
+    bookTable.replaceChildren();
+
+    const searchTerm = document
+        .getElementById("adminSearch")
+        .value.trim()
+        .toLowerCase();
+
+    const category = document
+        .getElementById("categoryFilter")
+        .value;
+
+
+    const filteredBooks = adminBooks.filter(book => {
+
+        const matchesSearch =
+            book.title.toLowerCase().includes(searchTerm) ||
+            book.author.toLowerCase().includes(searchTerm);
+
+        const matchesCategory =
+            category === "All" ||
+            book.category === category;
+
+        return matchesSearch && matchesCategory;
+
+    });
+
+
+    document.getElementById("adminEmpty").hidden =
+        filteredBooks.length !== 0;
+
+
+    filteredBooks.forEach(book => {
+
+        const row = document.createElement("tr");
+
+
+        /* BOOK INFORMATION */
+
+        const bookCell = document.createElement("td");
+
+        const bookInfo = createElement(
+            "div",
+            "admin-book-info"
+        );
+
+        const cover = createElement(
+            "div",
+            "admin-book-cover"
+        );
+
+
+        const imageURL = getSafeImageURL(
+            Array.isArray(book.images)
+                ? book.images[0]
+                : book.image
+        );
+
+
+        if (imageURL) {
+
+            const image = document.createElement("img");
+
+            image.src = imageURL;
+
+            image.alt = book.title;
+
+            image.addEventListener("error", () => {
+                image.remove();
+                cover.textContent = "📚";
+            });
+
+            cover.appendChild(image);
+
+        } else {
+
+            cover.textContent = "📚";
+
+        }
+
+
+        const info = document.createElement("div");
+
+        const title = createElement(
+            "strong",
+            "",
+            book.title
+        );
+
+        const author = createElement(
+            "span",
+            "",
+            book.author
+        );
+
+        info.append(title, author);
+
+        bookInfo.append(cover, info);
+
+        bookCell.appendChild(bookInfo);
+
+
+        /* CATEGORY */
+
+        const categoryCell = document.createElement("td");
+
+        categoryCell.appendChild(
+            createElement(
+                "span",
+                "admin-category-badge",
+                book.category || "Other"
+            )
+        );
+
+
+        /* PRICE */
+
+        const priceCell = createElement(
+            "td",
+            "",
+            "Rs. " + Number(book.price).toFixed(2)
+        );
+
+
+        /* STOCK */
+
+        const stock = Number(book.stock);
+
+        const stockCell = createElement(
+            "td",
+            "",
+            String(stock)
+        );
+
+
+        /* STATUS */
+
+        const statusCell = document.createElement("td");
+
+        let statusText = "In Stock";
+
+        let statusClass = "stock-good";
+
+        if (stock <= 0) {
+
+            statusText = "Out of Stock";
+
+            statusClass = "stock-out";
+
+        } else if (stock <= 5) {
+
+            statusText = "Low Stock";
+
+            statusClass = "stock-low";
+
+        }
+
+        statusCell.appendChild(
+            createElement(
+                "span",
+                "stock-badge " + statusClass,
+                statusText
+            )
+        );
+
+
+        /* ACTIONS */
+
+        const actionCell = document.createElement("td");
+
+        const actions = createElement(
+            "div",
+            "admin-actions"
+        );
+
+
+        const editButton = createElement(
+            "button",
+            "admin-action-btn",
+            "✏️"
+        );
+
+        editButton.type = "button";
+
+        editButton.title = "Edit Book";
+
+        editButton.setAttribute(
+            "aria-label",
+            "Edit " + book.title
+        );
+
+        editButton.addEventListener("click", () => {
+            editBook(book.id);
         });
-      });
-    }
 
-    function setPreviewImage(theme) {
-      if (currentPreviewImage) {
-        preview.image1.style.background = `url("${currentPreviewImage}") center/cover no-repeat`;
-      } else {
-        preview.image1.style.background = `linear-gradient(180deg, ${theme}40, ${theme})`;
-      }
-      preview.image2.style.background = `linear-gradient(180deg, ${theme}30, ${theme}60)`;
-    }
 
-    function updatePreview() {
-      const title = document.getElementById('bookTitle').value || 'Book preview';
-      const authorValue = document.getElementById('bookAuthor').value;
-      const author = authorValue ? `by ${authorValue}` : '';
-      const category = document.getElementById('bookCategory').value;
-      const description = document.getElementById('bookDescription').value || 'Add a description to preview the book details.';
-      const price = Number(document.getElementById('bookPrice').value || 0).toFixed(2);
-      const stock = Number(document.getElementById('bookStock').value || 0);
-      const theme = themeColors[category];
+        const deleteButton = createElement(
+            "button",
+            "admin-action-btn delete",
+            "🗑️"
+        );
 
-      preview.title.textContent = title;
-      preview.author.textContent = author;
-      preview.category.textContent = category;
-      preview.category.style.background = `${theme}20`;
-      preview.description.textContent = description;
-      preview.price.textContent = `Rs. ${price}`;
-      preview.stock.textContent = stock;
+        deleteButton.type = "button";
 
-      if (imageFileInput.files && imageFileInput.files[0]) {
+        deleteButton.title = "Delete Book";
+
+        deleteButton.setAttribute(
+            "aria-label",
+            "Delete " + book.title
+        );
+
+        deleteButton.addEventListener("click", () => {
+            deleteBook(book.id);
+        });
+
+
+        actions.append(editButton, deleteButton);
+
+        actionCell.appendChild(actions);
+
+
+        row.append(
+            bookCell,
+            categoryCell,
+            priceCell,
+            stockCell,
+            statusCell,
+            actionCell
+        );
+
+        bookTable.appendChild(row);
+
+    });
+
+
+    updateStatistics();
+
+}
+
+
+/* =========================================
+   MODAL MANAGEMENT
+   ========================================= */
+
+
+function openModal() {
+
+    bookModal.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+
+    document.getElementById("bookTitle").focus();
+
+}
+
+
+function closeModal() {
+
+    bookModal.classList.remove("active");
+
+    document.body.style.overflow = "";
+
+    bookForm.reset();
+
+    editingBookId = null;
+
+    selectedImage = "";
+
+    imagePreview.replaceChildren();
+
+    imagePreview.textContent = "📚";
+
+    document.getElementById("modalHeading").textContent =
+        "Add New Book";
+
+    document.getElementById("saveBookBtn").textContent =
+        "Save Book";
+
+}
+
+
+/* =========================================
+   ADD BOOK
+   ========================================= */
+
+
+document.getElementById("addBookBtn")
+    .addEventListener("click", () => {
+
+        editingBookId = null;
+
+        selectedImage = "";
+
+        bookForm.reset();
+
+        imagePreview.replaceChildren();
+
+        imagePreview.textContent = "📚";
+
+        document.getElementById("modalHeading").textContent =
+            "Add New Book";
+
+        document.getElementById("saveBookBtn").textContent =
+            "Save Book";
+
+        openModal();
+
+    });
+
+
+/* =========================================
+   IMAGE UPLOAD
+   ========================================= */
+
+
+document.getElementById("bookImage")
+    .addEventListener("change", event => {
+
+        const file = event.target.files[0];
+
+        if (!file) return;
+
+
+        const allowedTypes = [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+        ];
+
+
+        if (!allowedTypes.includes(file.type)) {
+
+            showToast("Please select a JPG, PNG or WEBP image.");
+
+            event.target.value = "";
+
+            return;
+
+        }
+
+
+        if (file.size > 1024 * 1024) {
+
+            showToast("Image must be smaller than 1 MB.");
+
+            event.target.value = "";
+
+            return;
+
+        }
+
+
         const reader = new FileReader();
+
+
         reader.onload = () => {
-          currentPreviewImage = reader.result;
-          setPreviewImage(theme);
+
+            if (typeof reader.result !== "string") {
+
+                showToast("Unable to read image.");
+
+                return;
+
+            }
+
+
+            selectedImage = reader.result;
+
+            imagePreview.replaceChildren();
+
+
+            const image = document.createElement("img");
+
+            image.src = selectedImage;
+
+            image.alt = "Book cover preview";
+
+            imagePreview.appendChild(image);
+
         };
-        reader.readAsDataURL(imageFileInput.files[0]);
-      } else {
-        currentPreviewImage = imageUrlInput.value.trim();
-        setPreviewImage(theme);
-      }
+
+
+        reader.onerror = () => {
+
+            showToast("Image upload failed.");
+
+        };
+
+
+        reader.readAsDataURL(file);
+
+    });
+
+
+/* =========================================
+   SAVE BOOK
+   ========================================= */
+
+
+bookForm.addEventListener("submit", event => {
+
+    event.preventDefault();
+
+
+    const title = document
+        .getElementById("bookTitle")
+        .value.trim();
+
+    const author = document
+        .getElementById("bookAuthor")
+        .value.trim();
+
+    const category = document
+        .getElementById("bookCategory")
+        .value;
+
+    const price = Number(
+        document.getElementById("bookPrice").value
+    );
+
+    const stock = Number(
+        document.getElementById("bookStock").value
+    );
+
+    const description = document
+        .getElementById("bookDescription")
+        .value.trim();
+
+    const theme = document
+        .getElementById("bookTheme")
+        .value;
+
+
+    /* VALIDATION */
+
+    if (!title || !author || !category) {
+
+        showToast("Please complete all required fields.");
+
+        return;
+
     }
 
-    document.querySelectorAll('.admin-form input, .admin-form textarea, .admin-form select').forEach(el => {
-      el.addEventListener('input', updatePreview);
-    });
 
-    document.getElementById('addBookBtn').addEventListener('click', () => {
-      const title = document.getElementById('bookTitle').value.trim();
-      const author = document.getElementById('bookAuthor').value.trim();
-      const category = document.getElementById('bookCategory').value;
-      const price = Number(document.getElementById('bookPrice').value);
-      const stock = Number(document.getElementById('bookStock').value);
-      const description = document.getElementById('bookDescription').value.trim();
-      const imageUrl = imageUrlInput.value.trim();
-      const imageFile = imageFileInput.files[0];
-      const theme = themeColors[category];
+    if (!Number.isFinite(price) || price <= 0) {
 
-      if (!title || !author || !price || !stock) {
-        alert('Please fill in title, author, price and stock.');
+        showToast("Please enter a valid book price.");
+
         return;
-      }
 
-      const saveBook = (imageSrc) => {
-        saveAdminBook({
-          title,
-          author,
-          category,
-          price,
-          oldPrice: price + 6,
-          stock,
-          theme,
-          description,
-          images: imageSrc
-            ? [imageSrc, theme + '40']
-            : [theme + '40', theme + '20']
-        });
+    }
 
-        alert('Book added. Refresh the shop page to see it in the customer interface.');
-        document.querySelector('.admin-form').reset();
-        currentPreviewImage = '';
-        updatePreview();
-      renderAdminBooks();
-        reader.onload = () => saveBook(reader.result);
-        reader.readAsDataURL(imageFile);
-      } else {
-        saveBook(imageUrl);
-      }
-    });
 
-    updatePreview();
-    renderAdminBooks();
-  </script>
+    if (
+        !Number.isInteger(stock) ||
+        stock < 0
+    ) {
+
+        showToast("Please enter a valid stock quantity.");
+
+        return;
+
+    }
+
+
+    const previousBook = editingBookId
+        ? adminBooks.find(book => book.id === editingBookId)
+        : null;
+
+
+    const finalImage = selectedImage ||
+        (
+            previousBook
+                ? (
+                    Array.isArray(previousBook.images)
+                        ? previousBook.images[0] || ""
+                        : previousBook.image || ""
+                )
+                : ""
+        );
+
+
+    const bookData = {
+
+        id: editingBookId || (
+            "book-" + Date.now() + "-" +
+            Math.random().toString(36).slice(2, 7)
+        ),
+
+        title: title,
+
+        author: author,
+
+        category: category,
+
+        price: price,
+
+        stock: stock,
+
+        description: description,
+
+        theme: theme,
+
+        image: finalImage,
+
+        images: finalImage ? [finalImage] : []
+
+    };
+
+
+    const previousBooks = [...adminBooks];
+
+
+    if (editingBookId) {
+
+        adminBooks = adminBooks.map(book =>
+            book.id === editingBookId
+                ? bookData
+                : book
+        );
+
+    } else {
+
+        adminBooks.push(bookData);
+
+    }
+
+
+    if (!saveBooks()) {
+
+        adminBooks = previousBooks;
+
+        return;
+
+    }
+
+
+    closeModal();
+
+    renderBooks();
+
+
+    showToast(
+        editingBookId
+            ? "Book updated successfully!"
+            : "New book added successfully!"
+    );
+
+});
+
+
+/* =========================================
+   EDIT BOOK
+   ========================================= */
+
+
+function editBook(bookId) {
+
+    const book = adminBooks.find(
+        item => item.id === bookId
+    );
+
+    if (!book) return;
+
+
+    editingBookId = bookId;
+
+    selectedImage = "";
+
+
+    document.getElementById("bookTitle").value =
+        book.title;
+
+    document.getElementById("bookAuthor").value =
+        book.author;
+
+    document.getElementById("bookCategory").value =
+        book.category;
+
+    document.getElementById("bookPrice").value =
+        book.price;
+
+    document.getElementById("bookStock").value =
+        book.stock;
+
+    document.getElementById("bookDescription").value =
+        book.description || "";
+
+    document.getElementById("bookTheme").value =
+        book.theme || "#7047dc";
+
+
+    const existingImage = getSafeImageURL(
+        Array.isArray(book.images)
+            ? book.images[0]
+            : book.image
+    );
+
+
+    imagePreview.replaceChildren();
+
+
+    if (existingImage) {
+
+        const image = document.createElement("img");
+
+        image.src = existingImage;
+
+        image.alt = "Current book cover";
+
+        imagePreview.appendChild(image);
+
+    } else {
+
+        imagePreview.textContent = "📚";
+
+    }
+
+
+    document.getElementById("modalHeading").textContent =
+        "Edit Book";
+
+    document.getElementById("saveBookBtn").textContent =
+        "Update Book";
+
+
+    openModal();
+
+}
+
+
+/* =========================================
+   DELETE BOOK
+   ========================================= */
+
+
+function deleteBook(bookId) {
+
+    const book = adminBooks.find(
+        item => item.id === bookId
+    );
+
+    if (!book) return;
+
+
+    const confirmed = confirm(
+        "Are you sure you want to delete \"" +
+        book.title +
+        "\"?"
+    );
+
+
+    if (!confirmed) return;
+
+
+    const previousBooks = [...adminBooks];
+
+
+    adminBooks = adminBooks.filter(
+        item => item.id !== bookId
+    );
+
+
+    if (!saveBooks()) {
+
+        adminBooks = previousBooks;
+
+        return;
+
+    }
+
+
+    renderBooks();
+
+    showToast("Book deleted successfully.");
+
+}
+
+
+/* =========================================
+   SEARCH AND FILTER
+   ========================================= */
+
+
+document.getElementById("adminSearch")
+    .addEventListener("input", renderBooks);
+
+
+document.getElementById("categoryFilter")
+    .addEventListener("change", renderBooks);
+
+
+/* =========================================
+   MODAL CLOSE EVENTS
+   ========================================= */
+
+
+document.getElementById("closeModal")
+    .addEventListener("click", closeModal);
+
+
+document.getElementById("cancelModal")
+    .addEventListener("click", closeModal);
+
+
+document.getElementById("modalOverlay")
+    .addEventListener("click", closeModal);
+
+
+document.addEventListener("keydown", event => {
+
+    if (
+        event.key === "Escape" &&
+        bookModal.classList.contains("active")
+    ) {
+
+        closeModal();
+
+    }
+
+});
+
+
+/* =========================================
+   TOAST MESSAGE
+   ========================================= */
+
+
+function showToast(message) {
+
+    adminToast.textContent = message;
+
+    adminToast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+
+        adminToast.classList.remove("show");
+
+    }, 2800);
+
+}
+
+
+/* =========================================
+   INITIALIZE DASHBOARD
+   ========================================= */
+
+
+loadBooks();
+
+renderBooks();
+
+
+</script>
+
 </body>
+
 </html>

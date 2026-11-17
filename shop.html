@@ -1,294 +1,1217 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop - Read more</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Explore the ReadMore bookstore collection. Discover fiction, science, history and children's books.">
+
+    <meta name="theme-color" content="#7047dc">
+
+    <title>Shop Books | ReadMore</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <header class="navbar">
-    <div class="logo">
-      <span class="logo-icon">☰</span>
-      <span class="logo-text">Read <b>more</b></span>
-    </div>
+<!-- NAVIGATION -->
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+        <span class="logo-icon">☰</span>
+        <span class="logo-text">Read<b>More.</b></span>
+    </a>
+
     <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="shop.html" class="active">Shop</a>
-      <a href="contact.html">Contact</a>
+        <a href="index.html">Home</a>
+        <a href="shop.html" class="active">Shop</a>
+        <a href="contact.html">Contact</a>
     </nav>
+
     <div class="nav-actions">
-      <button class="signup-btn">Sign Up <span class="user-icon">&#128100;</span></button>
-      <span class="cart-badge">0</span>
-      <a href="#" class="login-link">Login</a>
+
+        <a href="login.html" class="login-link">Login</a>
+
+        <a href="signup.html" class="signup-btn">
+            Sign Up <span>↗</span>
+        </a>
+
+        <a href="cart.html" class="cart-link" aria-label="Shopping cart">
+            🛒
+            <span class="cart-badge" id="cartCount">0</span>
+        </a>
+
     </div>
-  </header>
 
-  <main class="shop-page">
+</header>
+
+
+<main>
+
+    <!-- SHOP HERO -->
     <section class="shop-hero">
-      <div class="shop-top">
+
+        <div class="shop-hero-content">
+
+            <span class="eyebrow">THE READMORE COLLECTION</span>
+
+            <h1>
+                Explore Our<br>
+                <span>World of Books.</span>
+            </h1>
+
+            <p>
+                Discover inspiring stories, exciting adventures and
+                knowledge that opens new possibilities.
+            </p>
+
+            <div class="shop-breadcrumb">
+                <a href="index.html">Home</a>
+                <span> / </span>
+                <span>Shop</span>
+            </div>
+
+        </div>
+
+        <div class="shop-hero-visual">
+            <div class="shop-circle"></div>
+            <div class="shop-book-illustration">
+                <span>READ</span>
+                <strong>MORE</strong>
+                <small>YOUR NEXT CHAPTER</small>
+            </div>
+            <div class="shop-hero-star">✦</div>
+        </div>
+
+    </section>
+
+
+    <!-- SHOP CONTENT -->
+    <section class="shop-container">
+
+        <!-- SECTION HEADING -->
+        <div class="shop-heading">
+
+            <div>
+                <span class="eyebrow">FIND YOUR NEXT READ</span>
+                <h2>Our Book <span>Collection</span></h2>
+                <p>Browse our collection and discover your next favourite.</p>
+            </div>
+
+            <div class="shop-result-count">
+                <span id="resultCount">0</span> Books Available
+            </div>
+
+        </div>
+
+
+        <!-- SEARCH AND SORT -->
+        <div class="shop-toolbar">
+
+            <div class="shop-search">
+
+                <span>⌕</span>
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search by book title or author..."
+                    aria-label="Search books"
+                >
+
+                <button id="clearSearch" type="button" aria-label="Clear search">
+                    ✕
+                </button>
+
+            </div>
+
+            <div class="shop-sort">
+
+                <label for="sortSelect">Sort by:</label>
+
+                <select id="sortSelect">
+                    <option value="default">Featured</option>
+                    <option value="low-high">Price: Low to High</option>
+                    <option value="high-low">Price: High to Low</option>
+                    <option value="name">Name: A to Z</option>
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- CATEGORY FILTERS -->
+        <div class="category-filter">
+
+            <button class="filter-btn active" data-category="All">
+                All Books
+            </button>
+
+            <button class="filter-btn" data-category="Fiction">
+                📚 Fiction
+            </button>
+
+            <button class="filter-btn" data-category="Science">
+                🔬 Science
+            </button>
+
+            <button class="filter-btn" data-category="History">
+                🏛️ History
+            </button>
+
+            <button class="filter-btn" data-category="Children">
+                🧸 Children
+            </button>
+
+        </div>
+
+
+        <!-- BOOK GRID -->
+        <div class="shop-book-grid" id="bookGrid">
+
+            <!-- JavaScript renders books here -->
+
+        </div>
+
+
+        <!-- EMPTY STATE -->
+        <div class="shop-empty" id="emptyState" hidden>
+
+            <div class="empty-icon">📚</div>
+
+            <h3>No Books Found</h3>
+
+            <p>
+                We couldn't find any books matching your search.
+                Try another title or category.
+            </p>
+
+            <button class="primary-btn" id="resetFilters">
+                View All Books
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- SHOP BANNER -->
+    <section class="shop-bottom-banner">
+
         <div>
-          <span class="eyebrow">Find Your Next Read</span>
-          <h1>Shop Books by Category</h1>
-          <p class="section-desc">Click a category to see only the books that belong to it.</p>
-        </div>
-      </div>
+            <span class="eyebrow">KEEP EXPLORING</span>
 
-      <div class="category-buttons shop-categories">
-        <a href="shop.html?category=Fiction" class="category-btn active">Fiction</a>
-        <a href="shop.html?category=Science" class="category-btn">Science</a>
-        <a href="shop.html?category=History" class="category-btn">History</a>
-        <a href="shop.html?category=Children" class="category-btn">Children</a>
-      </div>
+            <h2>
+                A New Adventure<br>
+                Is Just a Page Away.
+            </h2>
+
+            <p>
+                Every book has a story. Find the one waiting for you.
+            </p>
+        </div>
+
+        <a href="contact.html" class="primary-btn">
+            Contact Us →
+        </a>
+
     </section>
 
-    <section class="books-grid" id="booksGrid">
-      <!-- Book cards inserted by script -->
-    </section>
+</main>
 
-    <section class="book-detail" id="bookDetail">
-      <div class="detail-left">
-        <div class="detail-images">
-          <div class="detail-image image-1" id="detailImage1"></div>
-          <div class="detail-image image-2" id="detailImage2"></div>
+
+<!-- BOOK DETAILS MODAL -->
+<div class="book-modal" id="bookModal" aria-hidden="true">
+
+    <div class="book-modal-overlay" id="modalOverlay"></div>
+
+    <div
+        class="book-modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+    >
+
+        <button class="modal-close" id="closeModal" aria-label="Close">
+            ✕
+        </button>
+
+        <div class="modal-book-image" id="modalImage">
+            <span>READ MORE</span>
         </div>
-      </div>
-      <div class="detail-right">
-        <span class="book-category" id="detailCategory"></span>
-        <h2 id="detailTitle"></h2>
-        <p class="book-author" id="detailAuthor"></p>
-        <p class="book-description" id="detailDescription"></p>
 
-        <div class="price-row">
-          <span class="book-price" id="detailPrice"></span>
-          <span class="book-old-price" id="detailOldPrice"></span>
+        <div class="modal-book-info">
+
+            <span class="book-category" id="modalCategory"></span>
+
+            <h2 id="modalTitle">Book Title</h2>
+
+            <p class="modal-author" id="modalAuthor"></p>
+
+            <p class="modal-description" id="modalDescription"></p>
+
+            <div class="modal-price-row">
+                <strong id="modalPrice">Rs. 0.00</strong>
+            </div>
+
+            <p class="modal-stock" id="modalStock"></p>
+
+            <button class="primary-btn" id="modalAddToCart">
+                Add to Cart 🛒
+            </button>
+
         </div>
 
-        <div class="stock-row">
-          <span class="stock-label">Stock:</span>
-          <span class="stock-value" id="detailStock"></span>
-        </div>
-      </div>
-    </section>
-  </main>
+    </div>
 
-  <script>
-    const defaultBooks = [
-      {
-        title: 'The Starlight Voyage',
-        author: 'Ava Monroe',
-        category: 'Fiction',
+</div>
+
+
+<!-- TOAST MESSAGE -->
+<div class="shop-toast" id="toastMessage" role="status" aria-live="polite"></div>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    <div class="footer-main">
+
+        <div class="footer-brand">
+
+            <a href="index.html" class="logo">
+                <span class="logo-icon">☰</span>
+                <span class="logo-text">Read<b>More.</b></span>
+            </a>
+
+            <p>
+                Discover new worlds, explore knowledge
+                and make every reading moment meaningful.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>Explore</h3>
+
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="shop.html?category=Fiction">Fiction</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>Account</h3>
+
+            <a href="login.html">Login</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="cart.html">Shopping Cart</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>Support</h3>
+
+            <a href="contact.html">Contact Us</a>
+            <a href="admin.html">Admin Panel</a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>© <span id="currentYear"></span> ReadMore. All rights reserved.</p>
+
+        <p>Designed with 💜 for book lovers.</p>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =========================================
+   READMORE SHOP SYSTEM
+   ========================================= */
+
+
+/* STORAGE KEYS */
+
+const BOOK_STORAGE = "readmore-admin-books";
+const CART_STORAGE = "readmore-cart";
+
+
+/* DEFAULT BOOK COLLECTION */
+
+const defaultBooks = [
+
+    {
+        id: "book-001",
+        title: "The Silent Patient",
+        author: "Alex Michaelides",
+        category: "Fiction",
         price: 18.99,
-        oldPrice: 24.00,
         stock: 12,
-        theme: '#7c3aed',
-        description: 'A beautiful story about adventure and imagination, perfect for readers who love a dreamy escape.',
-        images: ['#c7d2fe', '#d8b4fe']
-      },
-      {
-        title: 'Quantum Worlds',
-        author: 'Dr. Nia Patel',
-        category: 'Science',
+        description: "A psychological thriller about a woman who refuses to speak after a shocking incident. A fascinating story full of mystery and unexpected discoveries.",
+        theme: "#7047dc",
+        symbol: "THE SILENT PATIENT"
+    },
+
+    {
+        id: "book-002",
+        title: "Atomic Habits",
+        author: "James Clear",
+        category: "Science",
         price: 22.50,
-        oldPrice: 28.00,
-        stock: 8,
-        theme: '#38bdf8',
-        description: 'Explore the cutting edge of physics and ask the big questions about our universe.',
-        images: ['#dbeafe', '#bae6fd']
-      },
-      {
-        title: 'Lost Empires',
-        author: 'Jonah Lee',
-        category: 'History',
-        price: 17.20,
-        oldPrice: 22.00,
         stock: 15,
-        theme: '#f97316',
-        description: 'A fast-paced journey through ancient civilizations and the stories behind their rise and fall.',
-        images: ['#fed7aa', '#fde68a']
-      },
-      {
-        title: 'Moonlight Dreams',
-        author: 'Mia Chen',
-        category: 'Fiction',
-        price: 19.40,
-        oldPrice: 23.00,
+        description: "A practical guide to building good habits, breaking bad ones and making small changes that lead to remarkable results.",
+        theme: "#278a9d",
+        symbol: "ATOMIC HABITS"
+    },
+
+    {
+        id: "book-003",
+        title: "A Brief History of Time",
+        author: "Stephen Hawking",
+        category: "Science",
+        price: 24.99,
+        stock: 8,
+        description: "Explore the universe, black holes, time and the scientific ideas that help us understand the world around us.",
+        theme: "#245b8e",
+        symbol: "A BRIEF HISTORY OF TIME"
+    },
+
+    {
+        id: "book-004",
+        title: "The Psychology of Money",
+        author: "Morgan Housel",
+        category: "Fiction",
+        price: 19.99,
         stock: 10,
-        theme: '#a78bfa',
-        description: 'An emotional tale of hope and discovery, weaving magical moments into everyday life.',
-        images: ['#ede9fe', '#f5d0fe']
-      },
-      {
-        title: 'Biology of Tomorrow',
-        author: 'Prof. Sara Kim',
-        category: 'Science',
-        price: 24.00,
-        oldPrice: 29.50,
-        stock: 6,
-        theme: '#22c55e',
-        description: 'A modern look at life sciences and how tomorrowâ€™s discoveries will shape our world.',
-        images: ['#dcfce7', '#bbf7d0']
-      },
-      {
-        title: 'Empire Stories',
-        author: 'Noah Hayes',
-        category: 'History',
-        price: 16.75,
-        oldPrice: 21.00,
-        stock: 18,
-        theme: '#fb7185',
-        description: 'Compelling tales of empire builders, revolutions, and the voices that changed history.',
-        images: ['#fed7e2', '#fecdd3']
-      },
-      {
-        title: 'The Little Explorer',
-        author: 'Ella Brooks',
-        category: 'Children',
-        price: 12.90,
-        oldPrice: 16.00,
-        stock: 22,
-        theme: '#fbbf24',
-        description: 'A playful story for young readers full of curiosity, fun, and charming illustrations.',
-        images: ['#fef3c7', '#fde68a']
-      },
-      {
-        title: 'Magic Garden',
-        author: 'Owen Clark',
-        category: 'Children',
-        price: 13.50,
-        oldPrice: 17.50,
+        description: "An engaging exploration of how people think about money, financial decisions and personal success.",
+        theme: "#c28b42",
+        symbol: "THE PSYCHOLOGY OF MONEY"
+    },
+
+    {
+        id: "book-005",
+        title: "Sapiens",
+        author: "Yuval Noah Harari",
+        category: "History",
+        price: 25.00,
+        stock: 9,
+        description: "A fascinating journey through human history, exploring how humans developed societies, cultures and civilizations.",
+        theme: "#a75a35",
+        symbol: "SAPIENS"
+    },
+
+    {
+        id: "book-006",
+        title: "The Little Prince",
+        author: "Antoine de Saint-Exupéry",
+        category: "Children",
+        price: 14.99,
         stock: 20,
-        theme: '#34d399',
-        description: 'A joyful childrenâ€™s adventure through a garden where every plant has a secret.',
-        images: ['#dcfce7', '#bbf7d0']
-      }
+        description: "A timeless story about friendship, imagination, love and discovering what truly matters in life.",
+        theme: "#e2a83c",
+        symbol: "THE LITTLE PRINCE"
+    },
+
+    {
+        id: "book-007",
+        title: "The Hobbit",
+        author: "J.R.R. Tolkien",
+        category: "Fiction",
+        price: 21.99,
+        stock: 11,
+        description: "Join Bilbo Baggins on an unforgettable adventure through mysterious lands filled with dragons, treasure and extraordinary creatures.",
+        theme: "#59804c",
+        symbol: "THE HOBBIT"
+    },
+
+    {
+        id: "book-008",
+        title: "Cosmos",
+        author: "Carl Sagan",
+        category: "Science",
+        price: 23.50,
+        stock: 7,
+        description: "Discover the wonders of space, astronomy and the scientific journey of humanity through the universe.",
+        theme: "#273f77",
+        symbol: "COSMOS"
+    }
+
+];
+
+
+/* APPLICATION STATE */
+
+let books = [];
+let selectedCategory = "All";
+let searchTerm = "";
+let selectedBook = null;
+
+const bookGrid = document.getElementById("bookGrid");
+const searchInput = document.getElementById("searchInput");
+const sortSelect = document.getElementById("sortSelect");
+const emptyState = document.getElementById("emptyState");
+const resultCount = document.getElementById("resultCount");
+const modal = document.getElementById("bookModal");
+const toast = document.getElementById("toastMessage");
+
+
+/* SAFE STORAGE READER */
+
+function readStorage(key, fallback) {
+
+    try {
+
+        const data = JSON.parse(localStorage.getItem(key));
+
+        return data ?? fallback;
+
+    } catch (error) {
+
+        return fallback;
+
+    }
+
+}
+
+
+/* LOAD BOOKS */
+
+function loadBooks() {
+
+    const adminBooks = readStorage(BOOK_STORAGE, []);
+
+    const validAdminBooks = Array.isArray(adminBooks)
+        ? adminBooks.filter(book =>
+            book &&
+            typeof book.title === "string" &&
+            typeof book.author === "string" &&
+            Number.isFinite(Number(book.price))
+        )
+        : [];
+
+    books = [...defaultBooks, ...validAdminBooks];
+
+}
+
+
+/* SAFE TEXT */
+
+function createElement(tag, className, text) {
+
+    const element = document.createElement(tag);
+
+    if (className) {
+        element.className = className;
+    }
+
+    if (text !== undefined) {
+        element.textContent = text;
+    }
+
+    return element;
+
+}
+
+
+/* PRICE FORMAT */
+
+function formatPrice(price) {
+
+    return "Rs. " + Number(price).toFixed(2);
+
+}
+
+
+/* VALIDATE IMAGE URL */
+
+function getSafeImageURL(value) {
+
+    if (typeof value !== "string" || !value.trim()) {
+        return "";
+    }
+
+    try {
+
+        const url = new URL(value, window.location.href);
+
+        if (
+            url.protocol === "https:" ||
+            url.protocol === "http:"
+        ) {
+            return url.href;
+        }
+
+    } catch (error) {
+
+        return "";
+
+    }
+
+    return "";
+
+}
+
+
+/* GET BOOK IMAGE */
+
+function getBookImage(book) {
+
+    if (
+        Array.isArray(book.images) &&
+        book.images.length > 0
+    ) {
+
+        const firstImage = book.images[0];
+
+        if (typeof firstImage === "string") {
+
+            return getSafeImageURL(firstImage);
+
+        }
+
+    }
+
+    return getSafeImageURL(book.image);
+
+}
+
+
+/* BOOK COVER */
+
+function createBookCover(book) {
+
+    const cover = createElement("div", "book-cover");
+
+    const imageURL = getBookImage(book);
+
+    if (imageURL) {
+
+        const image = document.createElement("img");
+
+        image.src = imageURL;
+        image.alt = book.title;
+        image.loading = "lazy";
+
+        image.addEventListener("error", () => {
+            image.remove();
+        });
+
+        cover.appendChild(image);
+
+    } else {
+
+        cover.style.background =
+            `linear-gradient(145deg, ${getSafeTheme(book.theme)}, #201b35)`;
+
+        const title = createElement(
+            "span",
+            "book-cover-title",
+            book.title
+        );
+
+        cover.appendChild(title);
+
+    }
+
+    return cover;
+
+}
+
+
+/* SAFE THEME */
+
+function getSafeTheme(theme) {
+
+    const allowedThemes = [
+        "#7047dc",
+        "#278a9d",
+        "#245b8e",
+        "#c28b42",
+        "#a75a35",
+        "#e2a83c",
+        "#59804c",
+        "#273f77",
+        "#7c3aed",
+        "#38bdf8",
+        "#f97316",
+        "#fbbf24"
     ];
 
-    const STORAGE_KEY = 'readmore-admin-books';
-    let selectedCategory = getQueryParam('category') || 'Fiction';
-    let selectedBookIndex = null;
+    return allowedThemes.includes(theme)
+        ? theme
+        : "#7047dc";
 
-    function getQueryParam(name) {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(name);
-    }
+}
 
-    function getAdminBooks() {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    }
 
-    function loadBooks() {
-      const adminBooks = getAdminBooks();
-      return defaultBooks.concat(adminBooks);
-    }
+/* RENDER BOOKS */
 
-    const books = loadBooks();
+function renderBooks() {
 
-    function formatPrice(value) {
-      return `Rs. ${value.toFixed(2)}`;
-    }
+    bookGrid.innerHTML = "";
 
-    function renderBooks(category) {
-      const container = document.getElementById('booksGrid');
-      container.innerHTML = '';
-      const filteredIndexes = books
-        .map((book, index) => book.category === category ? index : -1)
-        .filter(index => index !== -1);
+    let filteredBooks = books.filter(book => {
 
-      if (filteredIndexes.length === 0) {
-        container.innerHTML = `<div class="empty-state">No books found for ${category}.</div>`;
-        selectedBookIndex = null;
-        return;
-      }
+        const matchesCategory =
+            selectedCategory === "All" ||
+            book.category === selectedCategory;
 
-      filteredIndexes.forEach(index => {
-        const book = books[index];
-        const card = document.createElement('article');
-        card.className = 'book-card';
-        card.innerHTML = `
-          <span class="book-category">${book.category}</span>
-          <h2>${book.title}</h2>
-          <p class="book-author">by ${book.author}</p>
-          <p class="book-price">${formatPrice(book.price)}</p>
-          <button class="book-btn" data-index="${index}">View Book</button>
-        `;
-        container.appendChild(card);
-      });
+        const title = book.title.toLowerCase();
+        const author = book.author.toLowerCase();
 
-      const buttons = document.querySelectorAll('.book-btn');
-      buttons.forEach(button => {
-        button.addEventListener('click', () => {
-          selectedBookIndex = Number(button.dataset.index);
-          openBookDetail(selectedBookIndex);
-        });
-      });
+        const matchesSearch =
+            title.includes(searchTerm) ||
+            author.includes(searchTerm);
 
-      if (selectedBookIndex === null || books[selectedBookIndex].category !== category) {
-        selectedBookIndex = filteredIndexes[0];
-      }
-    }
+        return matchesCategory && matchesSearch;
 
-    function updateActiveCategory(category) {
-      const buttons = document.querySelectorAll('.shop-categories .category-btn');
-      buttons.forEach(btn => {
-        btn.classList.toggle('active', btn.textContent === category);
-      });
-    }
-
-    function openBookDetail(index) {
-      const book = books[index];
-      const detailSection = document.getElementById('bookDetail');
-      const detailImage1 = document.getElementById('detailImage1');
-      const detailImage2 = document.getElementById('detailImage2');
-      const detailCategory = document.getElementById('detailCategory');
-      const detailTitle = document.getElementById('detailTitle');
-      const detailAuthor = document.getElementById('detailAuthor');
-      const detailDescription = document.getElementById('detailDescription');
-      const detailPrice = document.getElementById('detailPrice');
-      const detailOldPrice = document.getElementById('detailOldPrice');
-      const detailStock = document.getElementById('detailStock');
-
-      const detailImage1Value = book.images[0] || `${book.theme}40`;
-      const detailImage2Value = book.images[1] || `${book.theme}20`;
-      detailImage1.style.background = detailImage1Value.startsWith('data:') || detailImage1Value.startsWith('http')
-        ? `url("${detailImage1Value}") center/cover no-repeat`
-        : `linear-gradient(180deg, ${detailImage1Value}, ${book.theme})`;
-      detailImage2.style.background = detailImage2Value.startsWith('data:') || detailImage2Value.startsWith('http')
-        ? `url("${detailImage2Value}") center/cover no-repeat`
-        : `linear-gradient(180deg, ${detailImage2Value}, ${book.theme})`;
-      detailSection.style.borderColor = book.theme;
-      detailCategory.textContent = book.category;
-      detailCategory.style.background = `${book.theme}20`;
-      detailTitle.textContent = book.title;
-      detailAuthor.textContent = `by ${book.author}`;
-      detailDescription.textContent = book.description;
-      detailPrice.textContent = formatPrice(book.price);
-      detailOldPrice.textContent = book.oldPrice ? formatPrice(book.oldPrice) : '';
-      detailStock.textContent = `${book.stock} copies`;
-    }
-
-    const categoryLinks = document.querySelectorAll('.shop-categories .category-btn');
-    categoryLinks.forEach(link => {
-      link.addEventListener('click', event => {
-        event.preventDefault();
-        const category = link.textContent;
-        selectedCategory = category;
-        updateActiveCategory(category);
-        window.history.replaceState({}, '', `shop.html?category=${category}`);
-        renderBooks(category);
-        const firstIndex = books.findIndex(book => book.category === category);
-        if (firstIndex !== -1) {
-          openBookDetail(firstIndex);
-        }
-      });
     });
 
-    updateActiveCategory(selectedCategory);
-    renderBooks(selectedCategory);
-    if (selectedBookIndex !== null) {
-      openBookDetail(selectedBookIndex);
+
+    /* SORT */
+
+    const sortType = sortSelect.value;
+
+    if (sortType === "low-high") {
+
+        filteredBooks.sort(
+            (a, b) => Number(a.price) - Number(b.price)
+        );
+
+    } else if (sortType === "high-low") {
+
+        filteredBooks.sort(
+            (a, b) => Number(b.price) - Number(a.price)
+        );
+
+    } else if (sortType === "name") {
+
+        filteredBooks.sort(
+            (a, b) => a.title.localeCompare(b.title)
+        );
+
     }
-  </script>
+
+
+    resultCount.textContent = filteredBooks.length;
+
+    emptyState.hidden = filteredBooks.length !== 0;
+
+    bookGrid.hidden = filteredBooks.length === 0;
+
+
+    filteredBooks.forEach(book => {
+
+        const card = createElement("article", "shop-book-card");
+
+        const coverWrapper = createElement(
+            "div",
+            "shop-book-cover-wrapper"
+        );
+
+        const cover = createBookCover(book);
+
+        coverWrapper.appendChild(cover);
+
+
+        const category = createElement(
+            "span",
+            "shop-book-category",
+            book.category
+        );
+
+        coverWrapper.appendChild(category);
+
+
+        const info = createElement("div", "shop-book-info");
+
+        const title = createElement(
+            "h3",
+            "shop-book-title",
+            book.title
+        );
+
+        const author = createElement(
+            "p",
+            "shop-book-author",
+            "by " + book.author
+        );
+
+        const priceRow = createElement("div", "shop-book-price-row");
+
+        const price = createElement(
+            "strong",
+            "shop-book-price",
+            formatPrice(book.price)
+        );
+
+        priceRow.appendChild(price);
+
+
+        const buttons = createElement("div", "shop-book-actions");
+
+        const detailsButton = createElement(
+            "button",
+            "book-details-btn",
+            "View Details"
+        );
+
+        detailsButton.type = "button";
+
+        detailsButton.addEventListener("click", () => {
+            openBookDetails(book.id);
+        });
+
+
+        const addButton = createElement(
+            "button",
+            "book-add-btn",
+            "Add to Cart +"
+        );
+
+        addButton.type = "button";
+
+        addButton.disabled = Number(book.stock) <= 0;
+
+        addButton.addEventListener("click", () => {
+            addToCart(book.id);
+        });
+
+
+        buttons.append(detailsButton, addButton);
+
+        info.append(title, author, priceRow, buttons);
+
+        card.append(coverWrapper, info);
+
+        bookGrid.appendChild(card);
+
+    });
+
+}
+
+
+/* BOOK DETAILS */
+
+function openBookDetails(bookId) {
+
+    const book = books.find(item => item.id === bookId);
+
+    if (!book) return;
+
+    selectedBook = book;
+
+    document.getElementById("modalTitle").textContent = book.title;
+
+    document.getElementById("modalAuthor").textContent =
+        "Written by " + book.author;
+
+    document.getElementById("modalCategory").textContent =
+        book.category;
+
+    document.getElementById("modalDescription").textContent =
+        book.description || "No description available.";
+
+    document.getElementById("modalPrice").textContent =
+        formatPrice(book.price);
+
+    document.getElementById("modalStock").textContent =
+        Number(book.stock) > 0
+            ? "Available stock: " + book.stock
+            : "Currently out of stock";
+
+
+    const modalImage = document.getElementById("modalImage");
+
+    modalImage.replaceChildren();
+
+    const imageURL = getBookImage(book);
+
+    if (imageURL) {
+
+        const image = document.createElement("img");
+
+        image.src = imageURL;
+        image.alt = book.title;
+
+        modalImage.appendChild(image);
+
+    } else {
+
+        modalImage.style.background =
+            `linear-gradient(145deg, ${getSafeTheme(book.theme)}, #201b35)`;
+
+        const coverText = createElement(
+            "span",
+            "",
+            book.title
+        );
+
+        modalImage.appendChild(coverText);
+
+    }
+
+
+    const addButton = document.getElementById("modalAddToCart");
+
+    addButton.disabled = Number(book.stock) <= 0;
+
+    addButton.textContent =
+        Number(book.stock) > 0
+            ? "Add to Cart 🛒"
+            : "Out of Stock";
+
+
+    modal.classList.add("active");
+
+    modal.setAttribute("aria-hidden", "false");
+
+    document.body.style.overflow = "hidden";
+
+    document.getElementById("closeModal").focus();
+
+}
+
+
+/* CLOSE MODAL */
+
+function closeBookModal() {
+
+    modal.classList.remove("active");
+
+    modal.setAttribute("aria-hidden", "true");
+
+    document.body.style.overflow = "";
+
+    selectedBook = null;
+
+}
+
+
+/* ADD TO CART */
+
+function addToCart(bookId) {
+
+    const book = books.find(item => item.id === bookId);
+
+    if (!book) return;
+
+    const stock = Number(book.stock);
+
+    if (!Number.isInteger(stock) || stock <= 0) {
+
+        showToast("This book is currently out of stock.");
+
+        return;
+
+    }
+
+
+    const cart = readStorage(CART_STORAGE, []);
+
+    if (!Array.isArray(cart)) {
+
+        showToast("Unable to access your shopping cart.");
+
+        return;
+
+    }
+
+
+    const existingItem = cart.find(
+        item => item && item.id === bookId
+    );
+
+
+    const currentQuantity = existingItem
+        ? Number(existingItem.quantity) || 0
+        : 0;
+
+
+    if (currentQuantity >= stock) {
+
+        showToast("Maximum available stock reached.");
+
+        return;
+
+    }
+
+
+    if (existingItem) {
+
+        existingItem.quantity += 1;
+
+    } else {
+
+        cart.push({
+
+            id: book.id,
+            title: book.title,
+            author: book.author,
+            category: book.category,
+            price: Number(book.price),
+            image: getBookImage(book),
+            quantity: 1
+
+        });
+
+    }
+
+
+    try {
+
+        localStorage.setItem(
+            CART_STORAGE,
+            JSON.stringify(cart)
+        );
+
+        updateCartCount();
+
+        showToast(book.title + " added to cart!");
+
+    } catch (error) {
+
+        showToast("Unable to save your cart.");
+
+    }
+
+}
+
+
+/* CART COUNT */
+
+function updateCartCount() {
+
+    const cart = readStorage(CART_STORAGE, []);
+
+    const count = Array.isArray(cart)
+        ? cart.reduce((total, item) => {
+
+            const quantity = Number(item?.quantity) || 0;
+
+            return total + Math.max(0, quantity);
+
+        }, 0)
+        : 0;
+
+    document.getElementById("cartCount").textContent = count;
+
+}
+
+
+/* TOAST MESSAGE */
+
+let toastTimer;
+
+function showToast(message) {
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 2800);
+
+}
+
+
+/* CATEGORY FILTERS */
+
+document.querySelectorAll(".filter-btn").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        document.querySelectorAll(".filter-btn").forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        selectedCategory = button.dataset.category;
+
+        renderBooks();
+
+    });
+
+});
+
+
+/* SEARCH */
+
+searchInput.addEventListener("input", () => {
+
+    searchTerm = searchInput.value.trim().toLowerCase();
+
+    document.getElementById("clearSearch").style.display =
+        searchInput.value ? "block" : "none";
+
+    renderBooks();
+
+});
+
+
+/* CLEAR SEARCH */
+
+document.getElementById("clearSearch").addEventListener("click", () => {
+
+    searchInput.value = "";
+
+    searchTerm = "";
+
+    document.getElementById("clearSearch").style.display = "none";
+
+    renderBooks();
+
+    searchInput.focus();
+
+});
+
+
+/* SORT */
+
+sortSelect.addEventListener("change", renderBooks);
+
+
+/* RESET FILTERS */
+
+document.getElementById("resetFilters").addEventListener("click", () => {
+
+    searchInput.value = "";
+
+    searchTerm = "";
+
+    selectedCategory = "All";
+
+    sortSelect.value = "default";
+
+    document.getElementById("clearSearch").style.display = "none";
+
+    document.querySelectorAll(".filter-btn").forEach(button => {
+
+        button.classList.toggle(
+            "active",
+            button.dataset.category === "All"
+        );
+
+    });
+
+    renderBooks();
+
+});
+
+
+/* MODAL EVENTS */
+
+document.getElementById("closeModal").addEventListener(
+    "click",
+    closeBookModal
+);
+
+document.getElementById("modalOverlay").addEventListener(
+    "click",
+    closeBookModal
+);
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape" && modal.classList.contains("active")) {
+
+        closeBookModal();
+
+    }
+
+});
+
+
+/* MODAL ADD TO CART */
+
+document.getElementById("modalAddToCart").addEventListener("click", () => {
+
+    if (selectedBook) {
+
+        addToCart(selectedBook.id);
+
+        closeBookModal();
+
+    }
+
+});
+
+
+/* CATEGORY FROM URL */
+
+function loadCategoryFromURL() {
+
+    const params = new URLSearchParams(window.location.search);
+
+    const category = params.get("category");
+
+    const allowedCategories = [
+        "Fiction",
+        "Science",
+        "History",
+        "Children"
+    ];
+
+    if (allowedCategories.includes(category)) {
+
+        selectedCategory = category;
+
+        document.querySelectorAll(".filter-btn").forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.category === category
+            );
+
+        });
+
+    }
+
+}
+
+
+/* INITIALIZE */
+
+document.getElementById("currentYear").textContent =
+    new Date().getFullYear();
+
+loadBooks();
+
+loadCategoryFromURL();
+
+renderBooks();
+
+updateCartCount();
+
+</script>
+
+
 </body>
 </html>
